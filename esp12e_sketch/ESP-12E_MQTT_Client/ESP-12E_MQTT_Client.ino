@@ -1,5 +1,6 @@
 // ***** IMPORT LIBRARIES *****
 #include <ESP8266WiFi.h>
+#include "DHT.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
@@ -8,7 +9,7 @@
 
 // Access point settings
 #define WLAN_SSID   "ASUS-Network"
-#define WLAN_PASS   ""
+#define WLAN_PASS   "ozgqmEutGq76bK2hXzQmV6Ox"
 
 // MQTT broker settings
 #define HOST        "192.168.1.50"
@@ -23,26 +24,46 @@
 #define CONN_ATTEMPTS 200
 #define MQTT_ATTEMPTS 10
 
+// Type of humidity/temperature sensor
+#define DHT_TYPE    DHT11   // DHT 11
+//#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
+#define DHT_PIN     13  // DHT sensor attached to GPIO 13
+
+// Led ports definitions
+#define LED_RED     5
+#define LED_GREEN   12
+#define LED_YELLOW  4
+
 WiFiClient client;
 Adafruit_MQTT_Client mqtt(&client, HOST, PORT, USERNAME, PASSWORD);
 Adafruit_MQTT_Publish temperature = Adafruit_MQTT_Publish(&mqtt, "espnode1/temperature");
+Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, "espnode1/humidity");
 
 // TODO: add new publications
 
+// Instantiate DHT sensor
+DHT dht(DHT_PIN, DHT_TYPE);
 
-void MQTT_connect();
+
 
 // ************************************************
 // ***              SETUP FUNCTION              ***
 // ************************************************
 
 void setup() {
+  
+  pinMode(LED_RED, OUTPUT);  // Red LED - GPIO 5
+  pinMode(LED_YELLOW, OUTPUT);  // Blue LED - GPIO 4
+  pinMode(LED_GREEN, OUTPUT);  // Green LED - GPIO 12
+
+  ledRed();
+  
   WiFi.forceSleepWake();
   delay(1);
   // Enable on-board ESP8266 wifi module to connect
   // to the Access Point specified by WLAN settings
   WiFi.mode(WIFI_STA);
-  delay(1000);
+  delay(500);                                   // Small delay to set up wifi module
 
   #ifdef DEBUG
     Serial.begin(9600);
@@ -52,6 +73,16 @@ void setup() {
     Serial.print("Connecting to ");
     Serial.println(WLAN_SSID);
   #endif
+
+  dht.begin();
+  float t = dht.readTemperature();  // As celsius
+  float h = dht.readHumidity();
+  float l = analogRead(A0) / 1023.0f;
+
+  if (isnan(t)) {
+    Serial.println("Failed to read from DHT sensor!");
+    t = 0;
+  }
 
   WiFi.begin(WLAN_SSID, WLAN_PASS);
 
@@ -78,15 +109,32 @@ void setup() {
     Serial.println(WiFi.localIP());
   #endif
 
+  // Wifi connection established, MQTT disconnected
+  ledYellow();
+
   MQTT_connect();
-  delay(100);
+  delay(500);
+
+  // Wifi connection established, MQTT connected
+  ledGreen();
 
   #ifdef DEBUG
     Serial.println("Publishing temperature...");
   #endif
 
   // Publish temperature value
-  temperature.publish("20.0");
+  temperature.publish(t);
+  humidity.publish(h);
+
+  #ifdef DEBUG
+    Serial.print("Temperature: ");
+    Serial.println(t);
+    Serial.print("Humidity: ");
+    Serial.print(h);
+    Serial.println("%");
+    Serial.print("Light: ");
+    Serial.println(l);
+  #endif
 
   delay(2000);
 
@@ -100,6 +148,8 @@ void setup() {
 
 void enterDeepSleep()
 {
+  ledOff();                 // Turn leds off
+  
   WiFi.mode(WIFI_OFF);      // Turn wifi off
   WiFi.forceSleepBegin();
   delay(1);
@@ -142,3 +192,30 @@ void MQTT_connect() {
     Serial.println("MQTT connected!");
   #endif
 }
+
+// ***** LED CONTROL FUNCTIONS *****
+
+void ledOff() {
+  digitalWrite(LED_RED, LOW);
+  digitalWrite(LED_YELLOW, LOW);
+  digitalWrite(LED_GREEN, LOW);
+}
+
+void ledRed() {
+  digitalWrite(LED_RED, HIGH);
+  digitalWrite(LED_YELLOW, LOW);
+  digitalWrite(LED_GREEN, LOW);
+}
+
+void ledYellow() {
+  digitalWrite(LED_RED, LOW);
+  digitalWrite(LED_YELLOW, HIGH);
+  digitalWrite(LED_GREEN, LOW);
+}
+
+void ledGreen() {
+  digitalWrite(LED_RED, LOW);
+  digitalWrite(LED_YELLOW, LOW);
+  digitalWrite(LED_GREEN, HIGH);
+}
+
