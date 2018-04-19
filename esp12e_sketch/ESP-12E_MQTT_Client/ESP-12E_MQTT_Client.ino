@@ -7,7 +7,7 @@
 #define DEBUG
 
 // Access point settings
-#define WLAN_SSID   ""
+#define WLAN_SSID   "ASUS-Network"
 #define WLAN_PASS   ""
 
 // MQTT broker settings
@@ -17,7 +17,7 @@
 #define PASSWORD    "hamrpi"
 
 // Seconds to sleep
-#define SLEEP_TIME  5
+#define SLEEP_TIME  10
 
 // Number of attempts to get connection before entering sleep mode
 #define CONN_ATTEMPTS 200
@@ -27,18 +27,28 @@ WiFiClient client;
 Adafruit_MQTT_Client mqtt(&client, HOST, PORT, USERNAME, PASSWORD);
 Adafruit_MQTT_Publish temperature = Adafruit_MQTT_Publish(&mqtt, "espnode1/temperature");
 
-
 // TODO: add new publications
+
 
 void MQTT_connect();
 
+// ************************************************
+// ***              SETUP FUNCTION              ***
+// ************************************************
+
 void setup() {
+  WiFi.forceSleepWake();
+  delay(1);
   // Enable on-board ESP8266 wifi module to connect
   // to the Access Point specified by WLAN settings
   WiFi.mode(WIFI_STA);
+  delay(1000);
 
   #ifdef DEBUG
-    Serial.begin(115200);
+    Serial.begin(9600);
+    delay(100);                                 // Small delay to set up serial connection
+    while(Serial.available()>0) Serial.read();  // Flush the buffer
+    Serial.println("");
     Serial.print("Connecting to ");
     Serial.println(WLAN_SSID);
   #endif
@@ -57,11 +67,10 @@ void setup() {
   
   if(i == CONN_ATTEMPTS) {
     #ifdef DEBUG
-      Serial.println("TIMOUT!");
+      Serial.println("Time is out. Entering deep sleep state...");
     #endif
-    
-    // TODO: and enter sleep mode
-    
+
+    enterDeepSleep();
   }
   
   #ifdef DEBUG
@@ -71,35 +80,39 @@ void setup() {
 
   MQTT_connect();
   delay(100);
-  
-  temperature.publish("20.0");
 
   #ifdef DEBUG
-    Serial.println("deep sleep");
+    Serial.println("Publishing temperature...");
   #endif
-  
-  delay(3000);
+
+  // Publish temperature value
+  temperature.publish("20.0");
+
+  delay(2000);
+
+  #ifdef DEBUG
+    Serial.println("Publish operation completed.");
+    Serial.println("Entering deep sleep state...");
+  #endif
+
+  enterDeepSleep();
 }
 
-void deepSleep()
+void enterDeepSleep()
 {
-  //https://github.com/esp8266/Arduino/issues/644
-  WiFi.mode(WIFI_OFF);
+  WiFi.mode(WIFI_OFF);      // Turn wifi off
   WiFi.forceSleepBegin();
   delay(1);
   ESP.deepSleep(SLEEP_TIME * 1000000/*, WAKE_RF_DISABLED*/);
 }
 
-void loop() 
-{
-  temperature.publish("20.0");
-
-  // ***** DEBUG
-  Serial.println("deep sleep");
-  delay(3000);
-  
+void loop() {
+  // loop function is not required since deep sleep is enabled.
+  // Every time the ESP-12E board restarts, the setup function is executed
+  // and deep sleep state is entered.
 }
 
+// ***** Connect to MQTT service provided by the MQTT broker *****
 void MQTT_connect() {
   int8_t err_code;
   
@@ -122,10 +135,10 @@ void MQTT_connect() {
     delay(1000);
     retries--;
     if(retries == 0)
-      deepSleep();
+      enterDeepSleep();
   }
 
   #ifdef DEBUG
-    Serial.println("MQTT Connected!");
+    Serial.println("MQTT connected!");
   #endif
 }
