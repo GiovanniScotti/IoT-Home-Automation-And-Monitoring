@@ -8,8 +8,8 @@
 #define DEBUG
 
 // Access point settings
-#define WLAN_SSID   "ASUS-Network"
-#define WLAN_PASS   "ozgqmEutGq76bK2hXzQmV6Ox"
+#define WLAN_SSID   ""
+#define WLAN_PASS   ""
 
 // MQTT broker settings
 #define HOST        "192.168.1.50"
@@ -38,8 +38,7 @@ WiFiClient client;
 Adafruit_MQTT_Client mqtt(&client, HOST, PORT, USERNAME, PASSWORD);
 Adafruit_MQTT_Publish temperature = Adafruit_MQTT_Publish(&mqtt, "espnode1/temperature");
 Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, "espnode1/humidity");
-
-// TODO: add new publications
+Adafruit_MQTT_Publish light = Adafruit_MQTT_Publish(&mqtt, "espnode1/light");
 
 // Instantiate DHT sensor
 DHT dht(DHT_PIN, DHT_TYPE);
@@ -63,12 +62,11 @@ void setup() {
   // Enable on-board ESP8266 wifi module to connect
   // to the Access Point specified by WLAN settings
   WiFi.mode(WIFI_STA);
-  delay(500);                                   // Small delay to set up wifi module
+  delay(500);                                   // Small delay to let the wifi module set up
 
   #ifdef DEBUG
     Serial.begin(9600);
     delay(100);                                 // Small delay to set up serial connection
-    while(Serial.available()>0) Serial.read();  // Flush the buffer
     Serial.println("");
     Serial.print("Connecting to ");
     Serial.println(WLAN_SSID);
@@ -77,17 +75,26 @@ void setup() {
   dht.begin();
   float t = dht.readTemperature();  // As celsius
   float h = dht.readHumidity();
-  float l = analogRead(A0) / 1023.0f;
+  float l = (analogRead(A0) / 1023.0f) * 100.0f;
 
-  if (isnan(t)) {
-    Serial.println("Failed to read from DHT sensor!");
-    t = 0;
+  if(isnan(t)) {
+    #ifdef DEBUG
+      Serial.println("Failed to read temperature from DHT sensor!");
+    #endif
+    t = NAN;
+  }
+
+  if(isnan(h)) {
+    #ifdef DEBUG
+      Serial.println("Failed to read humidity from DHT sensor!");
+    #endif
+    h = NAN;
   }
 
   WiFi.begin(WLAN_SSID, WLAN_PASS);
 
   int i;
-  for (i = 0; i < CONN_ATTEMPTS; i++) {
+  for(i = 0; i < CONN_ATTEMPTS; i++) {
     if(WiFi.status() == WL_CONNECTED) break;
     delay(100);
 
@@ -119,12 +126,13 @@ void setup() {
   ledGreen();
 
   #ifdef DEBUG
-    Serial.println("Publishing temperature...");
+    Serial.println("Publishing data...");
   #endif
 
   // Publish temperature value
   temperature.publish(t);
   humidity.publish(h);
+  light.publish(l);
 
   #ifdef DEBUG
     Serial.print("Temperature: ");
@@ -133,7 +141,8 @@ void setup() {
     Serial.print(h);
     Serial.println("%");
     Serial.print("Light: ");
-    Serial.println(l);
+    Serial.print(l);
+    Serial.println("%");
   #endif
 
   delay(2000);
@@ -175,7 +184,7 @@ void MQTT_connect() {
   #endif
   
   uint8_t retries = MQTT_ATTEMPTS;
-  while ((err_code = mqtt.connect()) != 0) { // Connect returns 0 on success
+  while((err_code = mqtt.connect()) != 0) { // Connect returns 0 on success
     #ifdef DEBUG
       Serial.println(mqtt.connectErrorString(err_code));
       Serial.println("Retrying MQTT connection in 1 second...");
