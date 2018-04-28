@@ -26,10 +26,10 @@
 
 // Type of humidity/temperature sensor
 #define DHT_TYPE    DHT11   // DHT 11
-//#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-#define DHT_PIN     13  // DHT sensor attached to GPIO 13
+//#define DHTTYPE DHT22     // DHT 22  (AM2302), AM2321
+#define DHT_PIN     13      // DHT sensor attached to GPIO 13
 
-// Led ports definitions
+// LED ports definitions
 #define LED_RED     5
 #define LED_GREEN   12
 #define LED_YELLOW  4
@@ -51,9 +51,9 @@ DHT dht(DHT_PIN, DHT_TYPE);
 
 void setup() {
   
-  pinMode(LED_RED, OUTPUT);  // Red LED - GPIO 5
+  pinMode(LED_RED, OUTPUT);     // Red LED - GPIO 5
   pinMode(LED_YELLOW, OUTPUT);  // Blue LED - GPIO 4
-  pinMode(LED_GREEN, OUTPUT);  // Green LED - GPIO 12
+  pinMode(LED_GREEN, OUTPUT);   // Green LED - GPIO 12
 
   ledRed();
   
@@ -72,6 +72,7 @@ void setup() {
     Serial.println(WLAN_SSID);
   #endif
 
+  // Read from DHT sensor
   dht.begin();
   float t = dht.readTemperature();  // As celsius
   float h = dht.readHumidity();
