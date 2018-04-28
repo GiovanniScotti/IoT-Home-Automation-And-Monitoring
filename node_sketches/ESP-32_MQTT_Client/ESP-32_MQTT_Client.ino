@@ -24,7 +24,7 @@
 #define LIGHT_ADC     33
 #define SWITCH        27
 
-// Wait time in milliseconds between two consecutive readings from sensors
+// Subscription wait time in milliseconds
 #define WAIT_TIME   5000
 
 WiFiClient client;
@@ -82,13 +82,16 @@ void setup() {
 
 void loop() {
   
-  while(WiFi.status() != WL_CONNECTED) {
-    #ifndef DEBUG
-      Serial.print(".");
-    #endif
-    
+  if(WiFi.status() != WL_CONNECTED) {
     ledRed();
-    delay(500);
+    WiFi.begin(WLAN_SSID, WLAN_PASS);
+    
+    while(WiFi.status() != WL_CONNECTED) {
+      #ifndef DEBUG
+        Serial.print(".");
+      #endif
+      delay(500);
+    }
   }
   
   MQTT_connect();
