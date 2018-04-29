@@ -1,0 +1,87 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{floatpag}
+
+%Code used for wider-than-margin figures
+\makeatletter
+\newcommand*{\centerfloat}{%
+	\parindent \z@
+	\leftskip \z@ \@plus 1fil \@minus \textwidth
+	\rightskip\leftskip
+	\parfillskip \z@skip}
+\makeatother
+
+%Figure progressive enumeration
+\usepackage{chngcntr}
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+
+%package used to enumerate figures
+\usepackage[labelfont=bf]{caption}
+
+%hyperref for interactive PDF index
+\usepackage[bookmarks, colorlinks, breaklinks]{hyperref}
+\hypersetup{linkcolor=black, citecolor=black, filecolor=black, urlcolor=black}
+
+%Package required to use special symbols
+\usepackage{amsmath, amssymb}
+
+%Package required to use figures
+\usepackage{graphicx}
+
+%Include the bibliography in the table of contents
+\usepackage{tocbibind}
+
+%Package used to insert figures at the specified position
+\usepackage{float}
+
+%Our chapters must be called sections
+\addto\captionsenglish{\renewcommand{\chaptername}{Section}}
+
+\begin{document}
+
+%Code for title page
+\begin{titlepage}
+\centering
+\includegraphics[width=0.30\textwidth]{./pictures/logo_poli}\par
+	\vspace{1.8cm}
+	{\Large {Internet of Things - 089073} \par}
+	\vspace{1.2cm}
+	{\LARGE \textbf{Home Automation and Monitoring} \par}
+	\vspace{2.5cm}
+	\begin{flushright}
+		{\Large\itshape{Angelo Claudio Re \\ Giovanni Scotti \\}
+		\vspace{0.5cm} 
+		\Large{\textbf{Professor:} Matteo Cesana}
+	    \par}
+	\end{flushright}
+	\vspace{2cm}
+	\vfill
+	% Bottom of the page
+	{\large Academic Year 2017/2018 \par}
+	\vspace{0.3cm}
+	{\large Document version: 1.0\par}
+\end{titlepage}
+
+%Make the table of contents
+\tableofcontents
+
+%INTRODUCTION
+\chapter{Introduction}
+\label{ch:Introduction}
+\input{./introduction.tex}
+
+\chapter{System Implementation}
+\label{ch:System Implementation}
+\input{./system_implementation.tex}
+
+\chapter{System Deployment}
+\label{ch:System Deployment}
+\input{./system_deployment.tex}
+
+\end{document}
