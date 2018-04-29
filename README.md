@@ -19,7 +19,7 @@ Moreover, MQTT clients provide credentials to the broker to join the network.
 Last but not least, power consumption has been taken into account: battery-powered ESP modules enter a deep sleep state after sending data.
 
 ## Documentation
-Download the latest version [here](https://github.com/GiovanniScotti/IoT-Home-Automation-And-Monitoring/doc/pdf/ham_doc.pdf)
+Download the latest version [here](https://github.com/GiovanniScotti/IoT-Home-Automation-And-Monitoring/tree/master/doc/pdf/ham_doc.pdf)
 
 ## Team Members
 * Angelo Claudio Re
