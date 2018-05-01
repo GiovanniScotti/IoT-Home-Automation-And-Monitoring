@@ -5,7 +5,7 @@ To begin with, the whole system mainly operates within the user Local Area Netwo
 
 The Raspberry Pi board is the backbone of the back-end processing activities. It is in charge of running Node-RED and acts as MQTT broker. It collects information that are sent out by several WiFi-capable modules taking advantage of the publish-subscribe MQTT connectivity protocol. Each module is provided with sensors that gather information about the surrounding environment.
 
-ESP-12E and ESP-32 are the IoT Wi-Fi boards that have been chosen to design the infrastructure. There exists a great variety of sensors that can be hooked up to these ESP modules and ease of programming via Arduino IDE makes them an appropriate choice too. Moreover, they offer full TCP/IP stack support.
+ESP-12E and ESP-32 NodeMCU are the IoT WiFi boards that have been chosen to design the infrastructure. There exists a great variety of sensors that can be hooked up to these ESP modules and ease of programming via Arduino IDE makes them an appropriate choice too. Moreover, they offer full TCP/IP stack support.
 Each board does not only publish data, but can also subscribe to a specific topic and receive remote commands to control actuators, such as relays.
 
 The end user is able to visualize a user-friendly, web-accessible dashboard directly from his/her own devices, which must be in the same network of the other system components, in case port forwarding is disabled. The interface is provided by Node-RED development tool.
@@ -102,8 +102,39 @@ In this case, just a single user has been created to manage the MQTT connection:
 % Sicurezza con credenziali
 % Installazione dashboard
 % Blocchi MQTT + credenziali
+
 \section{Getting started with ESP boards}
 % Schematici + commento codice
+The \textit{Home Automation and Monitoring} system makes use of ESP modules to collect data from sensors and transmit them to the Raspberry Pi taking advantage of MQTT protocol.
+
+Two kinds of boards have been selected to play the role of MQTT client; namely NodeMCU ESP-12E and ESP-32 development kits. The former is based on the widely explored ESP8266 System-On-Chip, which combines WiFi and microcontroller capabilities. The latter utilizes an ESP32 SoC that is very similar, but far more powerful. It has been designed to provide robustness, versatility and reliability in a wide variety of applications.
+
+Both the board can be easily programmed using the Arduino IDE after installing the appropriate cores via Arduino Boards Manager. The core installation will not be covered by this document.
+
+Please notice that there is not a particular reason to use one specific board or the other: they both can fulfill the requirements of the project. The usage of different boards creates heterogeneity and variety, which are always present in the real world. 
+
+\subsection{ESP-12E code and wiring}
+An accurate picture of the board pinout is represented by Figure \ref{esp12_pinout}. The ESP8266 module requires 3.3V power supply. Luckily the board provides a voltage regulator and can be connected to 5V using microUSB connector or \textit{Vin} pin.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./pictures/ESP-12E_pinout.JPG}
+		\caption{ESP-12E pinout.}
+		\label{esp12_pinout}
+	\end{center}
+\end{figure}
+
+\noindent
+There is a number of two ESP-12E boards involved in the project. They both have the same configuration, sensors and wiring. In more details, three LEDs give information about the status of the board:
+
+\begin{itemize}
+	\item \textbf{\textcolor{red}{Red}}: the board is trying to get WiFi access.
+	\item \textbf{\textcolor[rgb]{1,0.8,0}{Yellow}}: the board is setting up a MQTT connection.
+	\item \textbf{\textcolor[rgb]{0,0.6,0}{Green}}: the board is active and it is sending sensor data or listening to subscription messages.
+\end{itemize}
+
+% Continuare con schematico e deep sleep
+
 \section{Connecting to ThingSpeak}
 % Cos'è e cosa serve
 % Come ci colleghiamo al servizio?

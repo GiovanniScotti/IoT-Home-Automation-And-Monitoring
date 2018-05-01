@@ -7,6 +7,7 @@
 \usepackage{rotating}
 \usepackage{floatpag}
 \usepackage{listings}	% Used for code listing
+\usepackage{xcolor}		% Used for colored text
 
 % Code used for wider-than-margin figures
 \makeatletter
@@ -53,7 +54,8 @@
 	\vspace{1.8cm}
 	{\Large {Internet of Things - 089073} \par}
 	\vspace{1.2cm}
-	{\LARGE \textbf{Home Automation and Monitoring} \par}
+	{\LARGE \textbf{Home Automation and Monitoring \\
+		System} \par}
 	\vspace{2.5cm}
 	\begin{flushright}
 		{\Large\itshape{Angelo Claudio Re \\ Giovanni Scotti \\}
@@ -70,7 +72,11 @@
 \end{titlepage}
 
 % Make the table of contents
+\pagenumbering{Roman}
 \tableofcontents
+
+\newpage
+\pagenumbering{arabic}
 
 % INTRODUCTION
 \chapter{Introduction}
