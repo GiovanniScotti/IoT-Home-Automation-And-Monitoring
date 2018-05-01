@@ -6,8 +6,9 @@
 \usepackage{longtable}
 \usepackage{rotating}
 \usepackage{floatpag}
+\usepackage{listings}	% Used for code listing
 
-%Code used for wider-than-margin figures
+% Code used for wider-than-margin figures
 \makeatletter
 \newcommand*{\centerfloat}{%
 	\parindent \z@
@@ -16,36 +17,36 @@
 	\parfillskip \z@skip}
 \makeatother
 
-%Figure progressive enumeration
+% Figure progressive enumeration
 \usepackage{chngcntr}
 \counterwithin{figure}{chapter}
 \counterwithin{table}{chapter}
 
-%package used to enumerate figures
+% Package used to enumerate figures
 \usepackage[labelfont=bf]{caption}
 
-%hyperref for interactive PDF index
+% Hyperref for interactive PDF index
 \usepackage[bookmarks, colorlinks, breaklinks]{hyperref}
 \hypersetup{linkcolor=black, citecolor=black, filecolor=black, urlcolor=black}
 
-%Package required to use special symbols
+% Package required to use special symbols
 \usepackage{amsmath, amssymb}
 
-%Package required to use figures
+% Package required to use figures
 \usepackage{graphicx}
 
-%Include the bibliography in the table of contents
+% Include the bibliography in the table of contents
 \usepackage{tocbibind}
 
-%Package used to insert figures at the specified position
+% Package used to insert figures at the specified position
 \usepackage{float}
 
-%Our chapters must be called sections
+% Our chapters must be called sections
 \addto\captionsenglish{\renewcommand{\chaptername}{Section}}
 
 \begin{document}
 
-%Code for title page
+% Code for title page
 \begin{titlepage}
 \centering
 \includegraphics[width=0.30\textwidth]{./pictures/logo_poli}\par
@@ -68,18 +69,20 @@
 	{\large Document version: 1.0\par}
 \end{titlepage}
 
-%Make the table of contents
+% Make the table of contents
 \tableofcontents
 
-%INTRODUCTION
+% INTRODUCTION
 \chapter{Introduction}
 \label{ch:Introduction}
 \input{./introduction.tex}
 
+% SYSTEM IMPLEMENTATION
 \chapter{System Implementation}
 \label{ch:System Implementation}
 \input{./system_implementation.tex}
 
+% SYSTEM DEPLOYMENT
 \chapter{System Deployment}
 \label{ch:System Deployment}
 \input{./system_deployment.tex}
