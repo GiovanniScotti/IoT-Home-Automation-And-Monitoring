@@ -267,7 +267,7 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 770,
+        "x": 1050,
         "y": 160,
         "wires": []
     },
@@ -281,7 +281,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 710,
+        "x": 990,
         "y": 220,
         "wires": []
     },
@@ -307,7 +307,7 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 755,
+        "x": 1035,
         "y": 356,
         "wires": []
     },
@@ -321,7 +321,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 707,
+        "x": 987,
         "y": 415,
         "wires": []
     },
@@ -386,7 +386,7 @@
             "#c5b0d5"
         ],
         "useOldStyle": false,
-        "x": 753,
+        "x": 1033,
         "y": 286,
         "wires": [
             [],
@@ -447,7 +447,7 @@
         "y": 139.5,
         "wires": [
             [
-                "17ac2630.a1da6a"
+                "f5468ccb.2d58a"
             ]
         ]
     },
@@ -463,7 +463,7 @@
         "y": 358.5,
         "wires": [
             [
-                "c295de4b.70ada"
+                "89ffa033.7849c"
             ]
         ]
     },
@@ -516,7 +516,7 @@
         "y": 208.5,
         "wires": [
             [
-                "17ac2630.a1da6a"
+                "f5468ccb.2d58a"
             ]
         ]
     },
@@ -536,7 +536,7 @@
         "y": 428.5,
         "wires": [
             [
-                "c295de4b.70ada"
+                "89ffa033.7849c"
             ]
         ]
     },
@@ -572,7 +572,7 @@
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1010,
+        "x": 1290,
         "y": 200,
         "wires": [
             []
@@ -603,7 +603,7 @@
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1070,
+        "x": 1230,
         "y": 140,
         "wires": [
             []
@@ -613,12 +613,12 @@
         "id": "9414aba9.b12dc8",
         "type": "function",
         "z": "467e2699.b39858",
-        "name": "isNotNan & CreateHttpRequest",
-        "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field1=\" + data; \n\n    msg.topic = \"Temperature\";\n    \n    return msg;\n}",
+        "name": "CreateHttpRequest",
+        "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field1=\" + data; \n    \n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 537,
-        "y": 126,
+        "x": 630,
+        "y": 120,
         "wires": [
             [
                 "fa64794b.58e498",
@@ -654,7 +654,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 766,
+        "x": 926,
         "y": 165,
         "wires": []
     },
@@ -693,7 +693,7 @@
             "#c5b0d5"
         ],
         "useOldStyle": false,
-        "x": 816,
+        "x": 980,
         "y": 280,
         "wires": [
             [],
@@ -722,7 +722,7 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 826,
+        "x": 986,
         "y": 100,
         "wires": []
     },
@@ -738,7 +738,7 @@
         "y": 125.5,
         "wires": [
             [
-                "9414aba9.b12dc8"
+                "b0f09508.c92028"
             ]
         ]
     },
@@ -746,11 +746,11 @@
         "id": "dca98f97.4c53a",
         "type": "function",
         "z": "467e2699.b39858",
-        "name": "isNotNan & CreateHttpRequest",
-        "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field2=\" + data; \n\n    msg.topic = \"Humidity\";\n    \n    return msg;\n}",
+        "name": "CreateHttpRequest",
+        "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field2=\" + data; \n    \n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 510,
+        "x": 670,
         "y": 340,
         "wires": [
             [
@@ -802,7 +802,7 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 816,
+        "x": 980,
         "y": 351,
         "wires": []
     },
@@ -816,7 +816,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 766,
+        "x": 930,
         "y": 412,
         "wires": []
     },
@@ -832,7 +832,7 @@
         "y": 352.5,
         "wires": [
             [
-                "dca98f97.4c53a"
+                "2d604881.b791b8"
             ]
         ]
     },
@@ -922,11 +922,11 @@
         "id": "17ac2630.a1da6a",
         "type": "function",
         "z": "58067435.678ddc",
-        "name": "isNotNan & CreateHttpRequest",
-        "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field5=\" + data; \n\n    msg.topic = \"Temperature\";\n    \n    return msg;\n}",
+        "name": "CreateHttpRequest",
+        "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field5=\" + data; \n    \n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 490,
+        "x": 690,
         "y": 160,
         "wires": [
             [
@@ -941,12 +941,12 @@
         "id": "c295de4b.70ada",
         "type": "function",
         "z": "58067435.678ddc",
-        "name": "isNotNan & CreateHttpRequest",
-        "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field6=\" + data; \n\n    msg.topic = \"Humidity\";\n    \n    return msg;\n}",
+        "name": "CreateHttpRequest",
+        "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field6=\" + data; \n    \n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 470,
-        "y": 400,
+        "x": 670,
+        "y": 360,
         "wires": [
             [
                 "55583e43.01f9c",
@@ -965,7 +965,7 @@
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1030,
+        "x": 1194,
         "y": 320,
         "wires": [
             []
@@ -995,7 +995,7 @@
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1010,
+        "x": 1290,
         "y": 360,
         "wires": [
             []
@@ -1188,6 +1188,70 @@
         "wires": [
             [
                 "8545235a.46bb6"
+            ]
+        ]
+    },
+    {
+        "id": "b0f09508.c92028",
+        "type": "function",
+        "z": "467e2699.b39858",
+        "name": "isNotNan",
+        "func": "if(!isNaN(msg.payload)) {\n    msg.topic = \"Temperature\";\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 120,
+        "wires": [
+            [
+                "9414aba9.b12dc8"
+            ]
+        ]
+    },
+    {
+        "id": "2d604881.b791b8",
+        "type": "function",
+        "z": "467e2699.b39858",
+        "name": "isNotNan",
+        "func": "if(!isNaN(msg.payload)) {\n    msg.topic = \"Humidity\";\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 340,
+        "wires": [
+            [
+                "dca98f97.4c53a"
+            ]
+        ]
+    },
+    {
+        "id": "f5468ccb.2d58a",
+        "type": "function",
+        "z": "58067435.678ddc",
+        "name": "isNotNan",
+        "func": "if(!isNaN(msg.payload)) {\n    msg.topic = \"Temperature\";\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 160,
+        "wires": [
+            [
+                "17ac2630.a1da6a"
+            ]
+        ]
+    },
+    {
+        "id": "89ffa033.7849c",
+        "type": "function",
+        "z": "58067435.678ddc",
+        "name": "isNotNan",
+        "func": "if(!isNaN(msg.payload)) {\n    msg.topic = \"Humidity\";\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 360,
+        "wires": [
+            [
+                "c295de4b.70ada"
             ]
         ]
     }
