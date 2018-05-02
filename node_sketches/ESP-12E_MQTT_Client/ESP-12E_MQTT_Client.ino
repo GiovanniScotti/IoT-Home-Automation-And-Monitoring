@@ -5,6 +5,7 @@
 #include "Adafruit_MQTT_Client.h"
 
 // ***** Enable debug over serial communication
+// Decomment to enable serial debug
 #define DEBUG
 
 // Access point settings
@@ -26,7 +27,7 @@
 
 // Type of humidity/temperature sensor
 #define DHT_TYPE    DHT11   // DHT 11
-//#define DHTTYPE DHT22     // DHT 22  (AM2302), AM2321
+//#define DHT_TYPE  DHT22   // DHT 22  (AM2302), AM2321
 #define DHT_PIN     13      // DHT sensor attached to GPIO 13
 
 // LED ports definitions

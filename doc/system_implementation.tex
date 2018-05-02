@@ -95,7 +95,7 @@ The following two lines must be added to the \texttt{mosquitto.conf} file.
 \end{verbatim}
 
 \noindent
-In this case, just a single user has been created to manage the MQTT connection: username is \texttt{admin} and password is \texttt{hamrpi}. These credentials are used to set up MQTT on both the ESP nodes and Node-RED.
+In this case, just a single user has been created to manage the MQTT connection: username is \texttt{admin} and password is \texttt{hamrpi}. These credentials are used to set up MQTT by Node-RED and any ESP node.
 
 \subsection{Node-RED}
 % Cos'è e cosa serve
@@ -103,7 +103,7 @@ In this case, just a single user has been created to manage the MQTT connection:
 % Installazione dashboard
 % Blocchi MQTT + credenziali
 
-\section{Getting started with ESP boards}
+\section{Getting Started with ESP Boards}
 % Schematici + commento codice
 The \textit{Home Automation and Monitoring} system makes use of ESP modules to collect data from sensors and transmit them to the Raspberry Pi taking advantage of MQTT protocol.
 
@@ -113,8 +113,8 @@ Both the board can be easily programmed using the Arduino IDE after installing t
 
 Please notice that there is not a particular reason to use one specific board or the other: they both can fulfill the requirements of the project. The usage of different boards creates heterogeneity and variety, which are always present in the real world. 
 
-\subsection{ESP-12E code and wiring}
-An accurate picture of the board pinout is represented by Figure \ref{esp12_pinout}. The ESP8266 module requires 3.3V power supply. Luckily the board provides a voltage regulator and can be connected to 5V using microUSB connector or \textit{Vin} pin.
+\subsection{ESP-12E: Sensors, Wiring and Code}
+An accurate picture of the board pinout is shown in Figure \ref{esp12_pinout}. The ESP8266 module requires 3.3V power supply. Luckily the board provides a voltage regulator and can be connected to 5V using microUSB connector or \textit{Vin} pin.
 
 \begin{figure}[H]
 	\begin{center}
@@ -125,23 +125,50 @@ An accurate picture of the board pinout is represented by Figure \ref{esp12_pino
 \end{figure}
 
 \noindent
-There is a number of two ESP-12E boards involved in the project. They both have the same configuration, sensors and wiring. In more details, three LEDs give information about the status of the board:
+There is a number of two ESP-12E boards involved in the system. They both have the same configuration, sensors and wiring, but can be deployed in two different areas.
+
+\subsubsection{Status LEDs}
+Three LEDs give information about the status of the board:
 
 \begin{itemize}
 	\item \textbf{\textcolor{red}{Red}}: the board is trying to get WiFi access.
-	\item \textbf{\textcolor[rgb]{1,0.8,0}{Yellow}}: the board is setting up a MQTT connection.
-	\item \textbf{\textcolor[rgb]{0,0.6,0}{Green}}: the board is active and it is sending sensor data or listening to subscription messages.
+	\item \textbf{\textcolor[rgb]{1,0.8,0}{Yellow}}: the board is setting up a MQTT connection. The MQTT broker must be up and running to succeed.
+	\item \textbf{\textcolor[rgb]{0,0.6,0}{Green}}: the board is active and it is sending sensor data to the MQTT broker or listening to messages related to its subscriptions.
 \end{itemize}
 
-% Continuare con schematico e deep sleep
+\subsubsection{Temperature and humidity sensor}
+DHT11 and DTH22 are low cost temperature and humidity sensors. They are made of two parts: a thermistor and a capacitive humidity sensor. A small chip inside performs analog to digital conversion to let any microcontroller read the digital output signal.
+
+Even though the two DHT sensors are interchangeable, DHT22 is more accurate and covers a larger range of temperature.
+
+Since the system involves two ESP-12E boards, both the sensors are used for the sake of completeness. Moreover, the fact that it is fairly easy to connect up to them, as shown in Figure \ref{esp12_wiring}, the low cost and ease of interfacing make them an appropriate choice for the system.
+
+\subsubsection{Light sensor}
+A light sensor can be used to detect the current ambient light level, in particular the presence or absence of light. There exist several types of light sensors: photoresistors, phototransistors, photodiodes...
+
+The chosen approach was making use of a photoresistor, taking advantage of the ADC provided by ESP boards.
+
+A photoresistor changes its resistance based on the amount of light that falls upon it: the more the light, the less the resistance. A simple voltage divider can be used to give an input to the ADC, as illustrated by Figure \ref{esp12_wiring}.
+
+\subsubsection{Deep sleep}
+ESP8266, the core of ESP-12E boards, supports sleeping. While sleeping, the device draws much less power than while awake: this could be a good approach to save power when batteries are the only source of electricity.
+
+Deep sleep is one out of four supported types of sleep mode: everything is off but the Real Time Clock. This is the most power efficient option.
+
+Pin D0 (GPIO 16) needs to be connected to RST to wake up the device when deep sleep is over: whenever RST receives a LOW signal, it restarts the microcontroller. Once the device is in deep sleep mode, a LOW signal will be sent to GPIO 16 as soon as the timer is up.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=\textwidth]{./pictures/ESP-12E_wiring.png}
-		\caption{.}
+		\caption{ESP-12E schematic with sensors and status LEDs. Notice the wire to tie D0 to RST pin to enable deep sleep.}
 		\label{esp12_wiring}
 	\end{center}
 \end{figure}
+
+\subsubsection{Code}
+TODO: code description.
+
+\subsection{ESP-32: Sensors, Wiring and Code}
 
 \section{Connecting to ThingSpeak}
 % Cos'è e cosa serve
