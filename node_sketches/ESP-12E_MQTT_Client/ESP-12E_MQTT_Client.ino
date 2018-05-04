@@ -34,7 +34,6 @@
 
 // Type of humidity/temperature sensor
 #define DHT_TYPE    DHT11   // DHT 11
-//#define DHT_TYPE  DHT22   // DHT 22  (AM2302), AM2321
 #define DHT_PIN     13      // DHT sensor attached to GPIO 13
 
 // LED ports definitions
