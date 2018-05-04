@@ -1,3 +1,11 @@
+// **********************************************************************
+// This is the sketch for the ESP-32 board.
+// Supported sensors:
+// - Photoresistor as light sensor
+// Supported actuators:
+// - Relay module used as a remote switch
+// **********************************************************************
+
 // ***** IMPORT LIBRARIES *****
 #include "WiFi.h"
 #include "Adafruit_MQTT.h"

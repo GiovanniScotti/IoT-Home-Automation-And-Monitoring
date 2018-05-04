@@ -1,7 +1,7 @@
 // **********************************************************************
-// This is the sketch for the first ESP-12E board.
+// This is the sketch for the second ESP-12E board.
 // Supported sensors:
-// - DHT11 as temperature and humidity sensor
+// - DHT22 as temperature and humidity sensor
 // - Photoresistor as light sensor
 // **********************************************************************
 
@@ -33,8 +33,8 @@
 #define MQTT_ATTEMPTS 10
 
 // Type of humidity/temperature sensor
-#define DHT_TYPE    DHT11   // DHT 11
-//#define DHT_TYPE  DHT22   // DHT 22  (AM2302), AM2321
+//#define DHT_TYPE    DHT11   // DHT 11
+#define DHT_TYPE  DHT22     // DHT 22  (AM2302), AM2321
 #define DHT_PIN     13      // DHT sensor attached to GPIO 13
 
 // LED ports definitions
@@ -44,9 +44,9 @@
 
 WiFiClient client;
 Adafruit_MQTT_Client mqtt(&client, HOST, PORT, USERNAME, PASSWORD);
-Adafruit_MQTT_Publish temperature = Adafruit_MQTT_Publish(&mqtt, "espnode1/temperature");
-Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, "espnode1/humidity");
-Adafruit_MQTT_Publish light = Adafruit_MQTT_Publish(&mqtt, "espnode1/light");
+Adafruit_MQTT_Publish temperature = Adafruit_MQTT_Publish(&mqtt, "espnode3/temperature");
+Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, "espnode3/humidity");
+Adafruit_MQTT_Publish light = Adafruit_MQTT_Publish(&mqtt, "espnode3/light");
 
 // Instantiate DHT sensor
 DHT dht(DHT_PIN, DHT_TYPE);
