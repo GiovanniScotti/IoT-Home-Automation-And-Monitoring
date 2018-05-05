@@ -9,7 +9,7 @@ ESP-12E and ESP-32 NodeMCU are the IoT WiFi boards that have been chosen to desi
 Each board does not only publish data, but can also subscribe to a specific topic and receive remote commands to control actuators, such as relays.
 
 The end user is able to visualize a user-friendly, web-accessible dashboard directly from his/her own devices, which must be in the same network of the other system components, in case port forwarding is disabled. The interface is provided by Node-RED development tool.
-Furthermore, data are forwarded to ThingSpeak by the Raspberry board in order to log them in a remote database and to enable further analysis: ThingSpeak has integrated support from the numerical computing software MATLAB.
+Furthermore, data are forwarded to ThingSpeak by the Raspberry Pi board in order to log them in a remote database and to enable further analysis: ThingSpeak has integrated support from the numerical computing software MATLAB.
 
 \begin{figure}[H]
 	\begin{center}
@@ -19,23 +19,23 @@ Furthermore, data are forwarded to ThingSpeak by the Raspberry board in order to
 	\end{center}
 \end{figure}
 
-\section{Configuring the RPi}
-The Raspberry Pi is a tiny single-board computer featuring a Broadcom System-On-Chip with an integrated ARM compatible processor. There exist several different generations and models and the role in the system will suit them all. Anyway, using a Pi 3 Model B is highly recommended: it has a quad-core processor and on-board WiFi, Bluetooth and USB boot capabilities which do not require any extra module.
+\section{Configuring and Programming the RPi}
+The Raspberry Pi is a tiny single-board computer featuring a Broadcom System-On-Chip with an integrated ARM compatible processor. There exist several different generations and models and its role in the system will suit them all. Anyway, using a Pi 3 Model B is highly recommended: it has a quad-core processor and on-board WiFi, Bluetooth and USB boot capabilities which do not require any extra module.
 
-The Raspberry board needs a fresh installation of Raspbian Stretch, the official Debian-based Linux operating system of the Raspberry Pi Foundation. Other third-party operating systems are not taken into account by this document.
+The Raspberry Pi board needs a fresh installation of \textit{Raspbian Stretch}, the official Debian-based Linux operating system developed by the Raspberry Pi Foundation. Other third-party operating systems are not taken into account by this document.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./pictures/rpi_connections.png}
-		\caption{Location of connectors and main Integrated Circuits on the Raspberry Pi 3 Model B.}
+		\caption{Location of connectors and main integrated circuits on the Raspberry Pi 3 Model B.}
 		\label{rpi_connections}
 	\end{center}
 \end{figure}
 
 \noindent
-The board is used as headless computer, a device that has been configured to operate without a monitor, keyboard and mouse. The command line is accessed remotely from another computer on the same network using SSH. Since Raspbian has the SSH server disabled by default, it needs to be manually enabled from the desktop or in the terminal via \texttt{raspi-config}.
+The board is used as \textit{headless computer}, a device that has been configured to operate without a monitor, keyboard and mouse. The command line is accessed remotely from another computer on the same network using SSH. Since Raspbian has the SSH server disabled by default, it needs to be manually enabled from the desktop or in the terminal via \texttt{raspi-config}.
 
-Setting up a static IP address for the Raspberry is strongly recommended. It can be configured in the DHCP context menu of the wireless router. Since the procedure is different on any device, the handbook should be referred to.
+Setting up a static IP address for the Raspberry is strongly recommended. It can be assigned in the DHCP context menu of the wireless router. Since the procedure is different on any device, the router handbook should be referred to.
 
 Before proceeding with the following sections, all the software must be up-to-date. This straightforward operation is carried out by executing the commands below in a terminal window:
 
@@ -52,7 +52,7 @@ Information about a given topic are sent, or published, to a server that behaves
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./pictures/mqtt.png}
-		\caption{The message broker is the central point of the MQTT infrastructure. It receives published information and forward it to subscribed clients.}
+		\caption{The message broker is the central point of the MQTT infrastructure. It receives published information and forwards it to subscribed clients.}
 		\label{mqtt_functioning}
 	\end{center}
 \end{figure}
@@ -61,9 +61,9 @@ Information about a given topic are sent, or published, to a server that behaves
 MQTT offers three quality of service (QoS) levels to guarantee a certain degree of performance to a data flow:
 
 \begin{itemize}
-	\item \textbf{0.} At most once delivery: this is the minimal level and guarantees a best effort delivery. A message won't be acknowledged by the receiver or stored by the sender.
-	\item \textbf{1.} At least once delivery: all the messages will be delivered at least once to the receiver. This is the QoS level used in the \textit{Home and Automation Monitoring} system because the overhead is lower than QoS 2 and it guarantees the message arrives at least once. Duplicates are not a problem at all because the user interface will be updated one or more time with the same piece of information and this will be completely unnoticeable by the end user.
-	\item \textbf{2.} Exactly once delivery. It is the safest and the slowest quality of service level.
+	\item \textbf{Level 0.} At most once delivery: this is the minimal level and guarantees a best effort delivery. A message won't be acknowledged by the receiver or stored by the sender.
+	\item \textbf{Level 1.} At least once delivery: all the messages will be delivered at least once to the receiver. This is the QoS level used in the \textit{Home and Automation Monitoring} system because the overhead is lower than QoS 2 and it guarantees the message arrives at least once. Duplicates are not a problem at all because the user interface would be updated one or more time with the same piece of information and this would be completely unnoticeable by the end user.
+	\item \textbf{Level 2.} Exactly once delivery. It is the safest and the slowest quality of service level.
 \end{itemize}
 
 \subsection{Mosquitto}
@@ -76,7 +76,7 @@ To install the broker, the following command must be run from the Raspberry Pi t
 \end{verbatim}
 
 \noindent
-The broker will automatically start whenever the Raspberry is powered up. The next step is adding users and passwords to secure the MQTT connection. The current directory must be \texttt{/etc/mosquitto} while typing successive commands:
+The broker will automatically start whenever the Raspberry is powered up. The next step is adding users and passwords to secure the MQTT connection. The current directory must be \texttt{/etc/mosquitto} while typing the successive commands:
 
 \begin{verbatim}
     // Add the first user
@@ -95,25 +95,37 @@ The following two lines must be added to the \texttt{mosquitto.conf} file.
 \end{verbatim}
 
 \noindent
-In this case, just a single user has been created to manage the MQTT connection: username is \texttt{admin} and password is \texttt{hamrpi}. These credentials are used to set up MQTT by Node-RED and any ESP node.
+As far as this system is concerned, just a single user has been created to manage the MQTT connection: username is \texttt{admin} and password is \texttt{hamrpi}. These credentials are used to set up MQTT by Node-RED and any ESP node.
 
 \subsection{Node-RED}
+TODO: spiegare cos'è ed a cosa serve. \\
+TODO: spiegare come si installa la dashboard (plugin aggiuntivo). \\
+TODO: spiegare come rendere sicuro l'accesso. \\
+TODO: spiegare quali blocchi sono stati utilizzati e immagine finale della UI.
 % Cos'è e cosa serve
 % Sicurezza con credenziali
 % Installazione dashboard
 % Blocchi MQTT + credenziali
 
+\subsection{ThingSpeak}
+TODO: spiegare cos'è ed a cosa serve. \\
+TODO: spiegare come è stato utilizzato in Node-RED.
+% Cos'è e cosa serve
+% Come ci colleghiamo al servizio?
+% In breve come si usa
+
 \section{Getting Started with ESP Boards}
 % Schematici + commento codice
 The \textit{Home Automation and Monitoring} system makes use of ESP modules to collect data from sensors and transmit them to the Raspberry Pi taking advantage of MQTT protocol.
 
-Two kinds of boards have been selected to play the role of MQTT client; namely NodeMCU ESP-12E and ESP-32 development kits. The former is based on the widely explored ESP8266 System-On-Chip, which combines WiFi and microcontroller capabilities. The latter utilizes an ESP32 SoC that is very similar, but far more powerful. It has been designed to provide robustness, versatility and reliability in a wide variety of applications.
+Two kinds of boards have been selected to play the role of MQTT client; namely NodeMCU ESP-12E and ESP-32 development kits. The former is based on the widely explored ESP8266 System-On-Chip, which combines WiFi and microcontroller capabilities. The latter utilizes an ESP32 SoC that is very similar, but far more powerful: it has been designed to provide robustness, versatility and reliability in a wide variety of applications.
 
-Both the board can be easily programmed using the Arduino IDE after installing the appropriate cores via Arduino Boards Manager. The core installation will not be covered by this document.
+Both the boards can be easily programmed using the Arduino IDE after installing the appropriate cores via Arduino Boards Manager. The core installation will not be covered by this document.
 
 Please notice that there is not a particular reason to use one specific board or the other: they both can fulfill the requirements of the project. The usage of different boards creates heterogeneity and variety, which are always present in the real world. 
 
 \subsection{ESP-12E: Sensors, Wiring and Code}
+\label{esp12_getting_started}
 An accurate picture of the board pinout is shown in Figure \ref{esp12_pinout}. The ESP8266 module requires 3.3V power supply. Luckily the board provides a voltage regulator and can be connected to 5V using microUSB connector or \textit{Vin} pin.
 
 \begin{figure}[H]
@@ -126,6 +138,7 @@ An accurate picture of the board pinout is shown in Figure \ref{esp12_pinout}. T
 
 \noindent
 There is a number of two ESP-12E boards involved in the system. They both have the same configuration, sensors and wiring, but can be deployed in two different areas.
+In more details, each board takes advantage of temperature, humidity and light sensors.
 
 \subsubsection{Status LEDs}
 Three LEDs give information about the status of the board:
@@ -139,14 +152,14 @@ Three LEDs give information about the status of the board:
 \subsubsection{Temperature and humidity sensor}
 DHT11 and DTH22 are low cost temperature and humidity sensors. They are made of two parts: a thermistor and a capacitive humidity sensor. A small chip inside performs analog to digital conversion to let any microcontroller read the digital output signal.
 
-Even though the two DHT sensors are interchangeable, DHT22 is more accurate and covers a larger range of temperature.
+Even though the two DHT sensors are interchangeable, DHT22 is more accurate and covers a larger range of temperatures.
 
-Since the system involves two ESP-12E boards, both the sensors are used for the sake of completeness. Moreover, the fact that it is fairly easy to connect up to them, as shown in Figure \ref{esp12_wiring}, the low cost and ease of interfacing make them an appropriate choice for the system.
+Since the system involves two ESP-12E boards, both the sensors are used for the sake of completeness. Moreover, the fact that it is fairly easy to connect up to them, as shown in Figure \ref{esp12_wiring}, the low cost and ease of interfacing make these sensors an appropriate choice for the system.
 
 \subsubsection{Light sensor}
 A light sensor can be used to detect the current ambient light level, in particular the presence or absence of light. There exist several types of light sensors: photoresistors, phototransistors, photodiodes...
 
-The chosen approach was making use of a photoresistor, taking advantage of the ADC provided by ESP boards.
+The chosen approach is making use of a photoresistor, taking advantage of the ADC provided by ESP boards.
 
 A photoresistor changes its resistance based on the amount of light that falls upon it: the more the light, the less the resistance. A simple voltage divider can be used to give an input to the ADC, as illustrated by Figure \ref{esp12_wiring}.
 
@@ -166,11 +179,100 @@ Pin D0 (GPIO 16) needs to be connected to RST to wake up the device when deep sl
 \end{figure}
 
 \subsubsection{Code}
-TODO: code description.
+The main parts of the code are described by the following tables. In more detail, libraries are reported by Table \ref{esp12_code_libraries}, define preprocessor directives by Table \ref{esp12_code_defines}, global variables by Table \ref{label} and, lastly, functions by Table \ref{label}.
+
+\noindent\begin{minipage}{\textwidth}
+\begingroup
+\setlength{\LTleft}{-20cm plus -1fill}
+\setlength{\LTright}{\LTleft}
+	\begin{longtable}{l | l}
+		\hline
+		\textbf{Library} & \textbf{Description} \\
+		\hline
+		\hline
+		ESP8266WiFi.h & Required to enable WiFi connectivity. \\
+		\hline
+		DHT.h & Required to interface with DHT sensors. \\
+		\hline
+		Adafruit\_MQTT.h & Required to take advantage of MQTT protocol. \\ 
+		Adafruit\_MQTT\_Client.h &  \\
+		\hline
+
+	\caption{Libraries involved in the sketches for ESP-12E boards.}
+	\label{esp12_code_libraries}
+	\end{longtable}
+\endgroup
+\end{minipage}
+
+\noindent\begin{minipage}{\textwidth}
+\begingroup
+\setlength{\LTleft}{-20cm plus -1fill}
+\setlength{\LTright}{\LTleft}
+	\begin{longtable}{l | l}
+		\hline
+		\textbf{\#define Directive} & \textbf{Description} \\
+		\hline
+		\hline
+		DEBUG & Enables debug over serial communication. \\
+		\hline
+		\hline
+		WLAN\_SSID & Name of the WiFi network to connect to. \\
+		WLAN\_PASS & Password to join the WiFi network. \\ 
+		\hline
+		\hline
+		HOST & MQTT broker IP address. \\
+		PORT & MQTT broker port. \\
+		USERNAME & Credentials to set up the MQTT connection. \\
+		PASSWORD & Credentials to set up the MQTT connection. \\
+		\hline
+		\hline
+		SLEEP\_TIME & Deep sleep duration. \\
+		CONN\_ATTEMPTS & Number of attempts to get WiFi connection before entering deep sleep mode. \\
+		MQTT\_ATTEMPTS & Number of attempts to connect to MQTT service provided by the broker. \\
+		\hline
+		\hline
+		DHT\_TYPE & Type of DHT sensor. \\
+		DHT\_PIN & Digital pin to read data coming from DHT sensor. \\
+		\hline
+		\hline
+		LED\_RED & GPIO that controls the red led. \\
+		LED\_YELLOW & GPIO in charge of controlling the yellow led. \\
+		LED\_GREEN & GPIO that controls the green led. \\
+		\hline
+
+	\caption{Define directives specified in the sketches for ESP-12E boards.}
+	\label{esp12_code_defines}
+	\end{longtable}
+\endgroup
+\end{minipage}
+
+\textbf{TODO:} mancano tabelle global variables e funzioni
 
 \subsection{ESP-32: Sensors, Wiring and Code}
+An accurate picture of the board pinout is shown in Figure \ref{esp32_pinout}. As for ESP8266, also ESP32 requires 3.3V to operate. The board is provided with a voltage regulator and can be powered up by an external power source through USB connection or \textit{Vin} pin.
 
-\section{Connecting to ThingSpeak}
-% Cos'è e cosa serve
-% Come ci colleghiamo al servizio?
-% In breve come si usa
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./pictures/ESP-32_pinout.JPG}
+		\caption{ESP-32 pinout. Notice the presence of multiple ADC pins, in contrast with the only one offered by ESP-12E boards.}
+		\label{esp32_pinout}
+	\end{center}
+\end{figure}
+
+\noindent
+Just a single board of this type is involved in the system. It is hooked up to a light sensor and to a relay module. The board does not take advantage of deep sleep functionality because it needs to be always up and running in order to reduce the latency to switch on and off the relay.
+
+\subsubsection{Status LEDs}
+Three LEDs fit out information about the status of the board. They work exactly as for ESP-12E boards: make reference to subsection \ref{esp12_getting_started}.
+
+\subsubsection{Light sensor}
+A photoresistor and a voltage divider are used to provide light intensity information. The operating principle is the same as for ESP-12E boards: please, make reference to subsection \ref{esp12_getting_started}.
+
+\subsubsection{Relay module}
+A relay is an electrical switch operated by an electromagnet. Relays are usually used to control a high voltage circuit with a low power one. A microcontroller can drive relays with one of its digital pins: this is exactly what ESP32 is used for.
+
+The advanced WiFi connectivity of the board gives the possibility to remotely control the digital pin hooked to the relay module turning it into a remote switch.
+
+As mentioned earlier, in order to reduce the latency to turn on and off the relay, the module is always active and does not enter any sleep state.
+
+% TODO: piazzare schematico ESP-32 qui.
