@@ -129,25 +129,6 @@
         "birthPayload": ""
     },
     {
-        "id": "1268959.597e66a",
-        "type": "mqtt-broker",
-        "z": "",
-        "name": "",
-        "broker": "localhost",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "60",
-        "cleansession": true,
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": ""
-    },
-    {
         "id": "1dd699cd.2169a6",
         "type": "ui_group",
         "z": "",
@@ -244,6 +225,24 @@
         "disp": true,
         "width": "6",
         "collapse": false
+    },
+    {
+        "id": "1334f2a9.27cf6d",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
     },
     {
         "id": "c71f176d.d39e08",
@@ -1022,7 +1021,7 @@
         "z": "96b21e91.63ee2",
         "name": "Living Room Light Gauge",
         "group": "24223cde.ee9f04",
-        "order": 2,
+        "order": 5,
         "width": "6",
         "height": "3",
         "gtype": "gage",
@@ -1062,7 +1061,7 @@
         "z": "96b21e91.63ee2",
         "name": "Living Room Light Chart",
         "group": "24223cde.ee9f04",
-        "order": 3,
+        "order": 6,
         "width": "6",
         "height": "4",
         "label": "Light History",
@@ -1157,8 +1156,8 @@
         "qos": "1",
         "retain": "",
         "broker": "bb4f185a.f831f8",
-        "x": 651.75,
-        "y": 347,
+        "x": 1430,
+        "y": 500,
         "wires": []
     },
     {
@@ -1168,26 +1167,26 @@
         "name": "Lamp Relay Switch",
         "label": "Lamp",
         "group": "24223cde.ee9f04",
-        "order": 1,
+        "order": 3,
         "width": "6",
         "height": "2",
         "passthru": true,
         "decouple": "false",
-        "topic": "espnode2/toggle_sw",
+        "topic": "active",
         "style": "",
-        "onvalue": "1",
-        "onvalueType": "num",
+        "onvalue": "true",
+        "onvalueType": "bool",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "0",
-        "offvalueType": "num",
+        "offvalue": "false",
+        "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 185,
-        "y": 346,
+        "x": 730,
+        "y": 460,
         "wires": [
             [
-                "8545235a.46bb6"
+                "33fbac06.06ca94"
             ]
         ]
     },
@@ -1252,6 +1251,186 @@
         "wires": [
             [
                 "c295de4b.70ada"
+            ]
+        ]
+    },
+    {
+        "id": "92e425b.14732d8",
+        "type": "function",
+        "z": "96b21e91.63ee2",
+        "name": "msg",
+        "func": "\nreturn {topic: '', payload: msg};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 740,
+        "wires": [
+            [
+                "2695482d.a4b8e8"
+            ]
+        ]
+    },
+    {
+        "id": "189b3864.048938",
+        "type": "ui_template",
+        "z": "96b21e91.63ee2",
+        "group": "24223cde.ee9f04",
+        "name": "Date Input",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "format": "<input ng-model=\"me.item.value\" type=\"datetime-local\" style=\"z-index: 1;\" ng-change=\"send(me.item.value)\">",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 102.00042343139648,
+        "y": 745.000002861023,
+        "wires": [
+            [
+                "92e425b.14732d8"
+            ]
+        ]
+    },
+    {
+        "id": "2695482d.a4b8e8",
+        "type": "function",
+        "z": "96b21e91.63ee2",
+        "name": "time string to millis",
+        "func": "var d = new Date(msg.payload); \nmsg.topic = \"teargetTimestamp\"\nmsg.payload = d.getTime();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 448.00035858154297,
+        "y": 742.6668667793274,
+        "wires": [
+            [
+                "58b7fb88.55aee4"
+            ]
+        ]
+    },
+    {
+        "id": "58b7fb88.55aee4",
+        "type": "function",
+        "z": "96b21e91.63ee2",
+        "name": "set countdown in seconds",
+        "func": "msg.topic = \"countdown\";\nmsg.payload = Math.floor(((msg.payload - Date.now()) / 1000));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 678.0006980895996,
+        "y": 728.6670036315918,
+        "wires": [
+            [
+                "33fbac06.06ca94"
+            ]
+        ]
+    },
+    {
+        "id": "33fbac06.06ca94",
+        "type": "function",
+        "z": "96b21e91.63ee2",
+        "name": "reduce countdown",
+        "func": "context.countdown = context.countdown || 0;\ncontext.active = context.active || false;\nif(msg.topic === \"countdown\")\n context.countdown = msg.payload;\nif(msg.topic === \"active\")\n{\n context.active = msg.payload;\n if(context.active === false)\n {\n msg.topic = \"countdown\";\n msg.payload = \"\";\n return msg;\n }\n}\nif(msg.topic === \"tick\" && context.countdown > 0 && context.active)\n{\n context.countdown--;\n msg.topic = \"countdown\";\n msg.payload = context.countdown;\n return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 930.0008773803711,
+        "y": 749.3335809707642,
+        "wires": [
+            [
+                "4a13238e.a9bf3c",
+                "70b94c47.418824"
+            ]
+        ]
+    },
+    {
+        "id": "c236e97c.d3b208",
+        "type": "inject",
+        "z": "96b21e91.63ee2",
+        "name": "",
+        "topic": "tick",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 660,
+        "y": 860,
+        "wires": [
+            [
+                "33fbac06.06ca94"
+            ]
+        ]
+    },
+    {
+        "id": "4a13238e.a9bf3c",
+        "type": "ui_text",
+        "z": "96b21e91.63ee2",
+        "group": "24223cde.ee9f04",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "countdown",
+        "label": "Countdown",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1159.1674003601074,
+        "y": 745.666995048523,
+        "wires": []
+    },
+    {
+        "id": "70b94c47.418824",
+        "type": "function",
+        "z": "96b21e91.63ee2",
+        "name": "start if countdown 0",
+        "func": "if(msg.payload === 0)\n{\n msg.payload = \"1\";\n return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1171.1672325134277,
+        "y": 670.666989326477,
+        "wires": [
+            [
+                "ed161f91.505f4",
+                "8545235a.46bb6"
+            ]
+        ]
+    },
+    {
+        "id": "ed161f91.505f4",
+        "type": "function",
+        "z": "96b21e91.63ee2",
+        "name": "Stop Countdown",
+        "func": "msg.topic = \"active\";\nmsg.payload = false;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1457.1672401428223,
+        "y": 668.6669902801514,
+        "wires": [
+            [
+                "41e13d88.8812a4"
+            ]
+        ]
+    },
+    {
+        "id": "ee7799f8.7dae18",
+        "type": "ui_button",
+        "z": "96b21e91.63ee2",
+        "name": "",
+        "group": "24223cde.ee9f04",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "Start/Stop",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "",
+        "x": 1183.1672248840332,
+        "y": 503.6669397354126,
+        "wires": [
+            [
+                "ed161f91.505f4",
+                "8545235a.46bb6"
             ]
         ]
     }
