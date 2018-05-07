@@ -183,7 +183,7 @@
         "order": 1,
         "disp": true,
         "width": "6",
-        "collapse": false
+        "collapse": true
     },
     {
         "id": "328894b7.698e5c",
@@ -318,7 +318,7 @@
         "group": "449c7ae1.2a60c4",
         "order": 4,
         "width": "6",
-        "height": "4",
+        "height": "5",
         "label": "Temp/Hum History",
         "chartType": "line",
         "legend": "true",
@@ -327,7 +327,7 @@
         "nodata": "",
         "dot": false,
         "ymin": "-15",
-        "ymax": "45",
+        "ymax": "100",
         "removeOlder": "50",
         "removeOlderPoints": "",
         "removeOlderUnit": "1",
@@ -335,7 +335,7 @@
         "useOneColor": false,
         "colors": [
             "#1f77b4",
-            "#aec7e8",
+            "#f0e617",
             "#ff7f0e",
             "#2ca02c",
             "#98df8a",
@@ -368,7 +368,7 @@
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
-        "ymin": "1",
+        "ymin": "0",
         "ymax": "100",
         "removeOlder": "15",
         "removeOlderPoints": "",
@@ -592,7 +592,7 @@
         "gtype": "gage",
         "title": "Temperature",
         "label": "°C",
-        "format": "{{value|number:1}}",
+        "format": "{{value|number:0}}",
         "min": "-15",
         "max": "45",
         "colors": [
@@ -952,7 +952,7 @@
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
-        "ymin": "1",
+        "ymin": "0",
         "ymax": "100",
         "removeOlder": "15",
         "removeOlderPoints": "",
