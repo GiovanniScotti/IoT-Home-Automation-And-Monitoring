@@ -1,27 +1,27 @@
 [
     {
-        "id": "467e2699.b39858",
+        "id": "7d6d0ff9.579f8",
         "type": "tab",
         "label": "Backyard",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "96b21e91.63ee2",
+        "id": "5650015b.3b555",
         "type": "tab",
         "label": "Living Room",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "58067435.678ddc",
+        "id": "25170876.8b9a18",
         "type": "tab",
         "label": "Bedroom",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "e28e8856.6598c8",
+        "id": "147cc3bd.887c0c",
         "type": "ui_base",
         "theme": {
             "name": "theme-light",
@@ -36,13 +36,15 @@
                 "default": "#097479",
                 "baseColor": "#097479",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "customTheme": {
                 "name": "Untitled Theme 1",
                 "default": "#4B7930",
                 "baseColor": "#4B7930",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
             },
             "themeState": {
                 "base-color": {
@@ -92,9 +94,9 @@
             }
         },
         "site": {
-            "name": "Node-RED Dashboard",
+            "name": "Home Automation And Monitoring",
             "hideToolbar": "false",
-            "allowSwipe": "true",
+            "allowSwipe": "false",
             "allowTempTheme": "true",
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
@@ -110,56 +112,51 @@
         }
     },
     {
-        "id": "cbe04697.7d6668",
-        "type": "mqtt-broker",
+        "id": "d0741307.852fd",
+        "type": "ui_group",
         "z": "",
-        "name": "mqtt-broker rasperry Pi",
-        "broker": "192.168.1.50",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "60",
-        "cleansession": true,
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": ""
+        "name": "Living Room",
+        "tab": "",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": true
     },
     {
-        "id": "1dd699cd.2169a6",
+        "id": "d4ab669.c50c698",
+        "type": "ui_group",
+        "z": "",
+        "name": "Bedroom",
+        "tab": "",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": true
+    },
+    {
+        "id": "36466ca2.91fcd4",
         "type": "ui_group",
         "z": "",
         "name": "Backyard",
-        "tab": "227a1c7c.e82724",
+        "tab": "",
         "order": 1,
         "disp": true,
         "width": "6",
         "collapse": true
     },
     {
-        "id": "fa443fb9.5c173",
-        "type": "mqtt-broker",
+        "id": "b57b07a6.a18608",
+        "type": "ui_group",
         "z": "",
-        "name": "",
-        "broker": "localhost",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "60",
-        "cleansession": true,
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": ""
+        "name": "Backyard",
+        "tab": "5dab41b7.08ad1",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": true
     },
     {
-        "id": "227a1c7c.e82724",
+        "id": "5dab41b7.08ad1",
         "type": "ui_tab",
         "z": "",
         "name": "Home Automation and Monitoring",
@@ -167,37 +164,29 @@
         "order": 1
     },
     {
-        "id": "bb4f185a.f831f8",
-        "type": "mqtt-broker",
-        "z": "",
-        "name": "",
-        "broker": "localhost",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "60",
-        "cleansession": true,
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": ""
-    },
-    {
-        "id": "9eca0cb9.66818",
+        "id": "449c7ae1.2a60c4",
         "type": "ui_group",
         "z": "",
         "name": "Bedroom",
-        "tab": "227a1c7c.e82724",
+        "tab": "5dab41b7.08ad1",
         "order": 3,
         "disp": true,
         "width": "6",
         "collapse": true
     },
     {
-        "id": "c314a4f0.cb96c8",
+        "id": "aec31fdc.7f265",
+        "type": "ui_group",
+        "z": "",
+        "name": "Living room",
+        "tab": "5dab41b7.08ad1",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "328894b7.698e5c",
         "type": "mqtt-broker",
         "z": "",
         "name": "",
@@ -216,40 +205,11 @@
         "birthPayload": ""
     },
     {
-        "id": "24223cde.ee9f04",
-        "type": "ui_group",
-        "z": "",
-        "name": "Living room",
-        "tab": "227a1c7c.e82724",
-        "order": 1,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
-        "id": "1334f2a9.27cf6d",
-        "type": "mqtt-broker",
-        "z": "",
-        "broker": "localhost",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "60",
-        "cleansession": true,
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": ""
-    },
-    {
-        "id": "c71f176d.d39e08",
+        "id": "79ca6e32.7e7c6",
         "type": "ui_gauge",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "Bedroom Temperature Gauge",
-        "group": "9eca0cb9.66818",
+        "group": "449c7ae1.2a60c4",
         "order": 1,
         "width": "6",
         "height": "3",
@@ -271,9 +231,9 @@
         "wires": []
     },
     {
-        "id": "21ecf164.d6623e",
+        "id": "2002c04b.6d02b",
         "type": "debug",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -285,11 +245,11 @@
         "wires": []
     },
     {
-        "id": "72dcc781.afe908",
+        "id": "57123d11.440c44",
         "type": "ui_gauge",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "Bedroom Humidity Compass",
-        "group": "9eca0cb9.66818",
+        "group": "449c7ae1.2a60c4",
         "order": 2,
         "width": "6",
         "height": "3",
@@ -311,25 +271,25 @@
         "wires": []
     },
     {
-        "id": "811411c3.d4fbe",
+        "id": "a9d358e3.366058",
         "type": "debug",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 987,
-        "y": 415,
+        "x": 990.7500152587891,
+        "y": 466.2500057220459,
         "wires": []
     },
     {
-        "id": "fb262c2b.f84b8",
+        "id": "4e2747c9.f00e68",
         "type": "ui_gauge",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "Bedroom Light Gauge",
-        "group": "9eca0cb9.66818",
+        "group": "449c7ae1.2a60c4",
         "order": 3,
         "width": "6",
         "height": "3",
@@ -351,11 +311,11 @@
         "wires": []
     },
     {
-        "id": "55583e43.01f9c",
+        "id": "9260955c.63bbf8",
         "type": "ui_chart",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "Bedroom Temp/Hum Chart",
-        "group": "9eca0cb9.66818",
+        "group": "449c7ae1.2a60c4",
         "order": 4,
         "width": "6",
         "height": "4",
@@ -393,11 +353,11 @@
         ]
     },
     {
-        "id": "28fd1bde.b9b594",
+        "id": "3a8cbc0e.89d4b4",
         "type": "ui_chart",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "Bedroom Light Chart",
-        "group": "9eca0cb9.66818",
+        "group": "449c7ae1.2a60c4",
         "order": 5,
         "width": "6",
         "height": "4",
@@ -427,191 +387,112 @@
             "#c5b0d5"
         ],
         "useOldStyle": false,
-        "x": 741,
-        "y": 570,
+        "x": 743.5000114440918,
+        "y": 613.7500076293945,
         "wires": [
             [],
             []
         ]
     },
     {
-        "id": "3b54e473.6854cc",
+        "id": "e4abacdc.3981b",
         "type": "mqtt in",
-        "z": "58067435.678ddc",
-        "name": "Bedroom Temperature",
-        "topic": "espnode3/temperature",
-        "qos": "1",
-        "broker": "c314a4f0.cb96c8",
-        "x": 170,
-        "y": 139.5,
-        "wires": [
-            [
-                "f5468ccb.2d58a"
-            ]
-        ]
-    },
-    {
-        "id": "d4531171.fda5b",
-        "type": "mqtt in",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "Bedroom Humidity",
         "topic": "espnode3/humidity",
         "qos": "1",
-        "broker": "c314a4f0.cb96c8",
+        "broker": "328894b7.698e5c",
         "x": 174,
         "y": 358.5,
         "wires": [
             [
-                "89ffa033.7849c"
+                "8c542dcc.3764e"
             ]
         ]
     },
     {
-        "id": "ada89477.c07c28",
+        "id": "373ed65.4babf2a",
         "type": "mqtt in",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "Bedroom Light",
         "topic": "espnode3/light",
         "qos": "1",
-        "broker": "c314a4f0.cb96c8",
+        "broker": "328894b7.698e5c",
         "x": 185,
-        "y": 568.5,
+        "y": 579.7500076293945,
         "wires": [
             [
-                "fb262c2b.f84b8",
-                "28fd1bde.b9b594",
-                "f93361c5.549a",
-                "61248c1a.7269f4"
+                "4e2747c9.f00e68",
+                "3a8cbc0e.89d4b4",
+                "85cf692b.2dd0e8",
+                "86f68830.1fa158"
             ]
         ]
     },
     {
-        "id": "f93361c5.549a",
+        "id": "85cf692b.2dd0e8",
         "type": "debug",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 713,
-        "y": 631,
+        "x": 715.5000076293945,
+        "y": 687.2500095367432,
         "wires": []
     },
     {
-        "id": "98f91922.33e488",
-        "type": "inject",
-        "z": "58067435.678ddc",
-        "name": "",
-        "topic": "",
-        "payload": "30",
-        "payloadType": "num",
-        "repeat": "10",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 188,
-        "y": 208.5,
-        "wires": [
-            [
-                "f5468ccb.2d58a"
-            ]
-        ]
-    },
-    {
-        "id": "c7d04557.6b4bc8",
-        "type": "inject",
-        "z": "58067435.678ddc",
-        "name": "",
-        "topic": "",
-        "payload": "45",
-        "payloadType": "num",
-        "repeat": "10",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 183,
-        "y": 428.5,
-        "wires": [
-            [
-                "89ffa033.7849c"
-            ]
-        ]
-    },
-    {
-        "id": "8dae803e.92265",
-        "type": "inject",
-        "z": "58067435.678ddc",
-        "name": "",
-        "topic": "",
-        "payload": "60",
-        "payloadType": "num",
-        "repeat": "10",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 187,
-        "y": 641.5,
-        "wires": [
-            [
-                "28fd1bde.b9b594",
-                "fb262c2b.f84b8",
-                "f93361c5.549a",
-                "61248c1a.7269f4"
-            ]
-        ]
-    },
-    {
-        "id": "288fcd2.78f3c32",
+        "id": "7be69125.3e0a",
         "type": "http request",
-        "z": "58067435.678ddc",
-        "name": "",
+        "z": "25170876.8b9a18",
+        "name": "TS HTTP Request",
         "method": "GET",
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1290,
-        "y": 200,
+        "x": 1093.7500190734863,
+        "y": 72.50000381469727,
         "wires": [
             []
         ]
     },
     {
-        "id": "61248c1a.7269f4",
+        "id": "86f68830.1fa158",
         "type": "function",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "CreateHttpRequest",
         "func": "var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\nvar data = msg.payload;\n\nmsg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field7=\" + data; \n\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1010,
-        "y": 520,
+        "x": 965.0000152587891,
+        "y": 557.5000076293945,
         "wires": [
             [
-                "9f7be6c6.cf16b8"
+                "7f0771c3.f55b"
             ]
         ]
     },
     {
-        "id": "b55b083f.efadb8",
+        "id": "ea0e663d.726648",
         "type": "http request",
-        "z": "467e2699.b39858",
-        "name": "",
+        "z": "7d6d0ff9.579f8",
+        "name": "TS HTTP Request",
         "method": "GET",
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1230,
-        "y": 140,
+        "x": 1146.2500190734863,
+        "y": 115.00000190734863,
         "wires": [
             []
         ]
     },
     {
-        "id": "9414aba9.b12dc8",
+        "id": "3cd52fb4.7e97b",
         "type": "function",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "CreateHttpRequest",
         "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field1=\" + data; \n    \n    return msg;\n}",
         "outputs": 1,
@@ -620,33 +501,33 @@
         "y": 120,
         "wires": [
             [
-                "fa64794b.58e498",
-                "f47d434d.588fc",
-                "e9a9e5d1.ce8598",
-                "b55b083f.efadb8"
+                "7787ddb4.d25b84",
+                "82898123.c471d",
+                "e6e26441.680848",
+                "ea0e663d.726648"
             ]
         ]
     },
     {
-        "id": "ec1908a9.f93968",
+        "id": "4f6aedfe.502be4",
         "type": "function",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "CreateHttpRequest",
         "func": "var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\nvar data = msg.payload;\n\nmsg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field3=\" + data; \n\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1090,
-        "y": 500,
+        "x": 971.2500152587891,
+        "y": 528.7500076293945,
         "wires": [
             [
-                "383d5ae5.61f0c6"
+                "44aed715.7bbda8"
             ]
         ]
     },
     {
-        "id": "fa64794b.58e498",
+        "id": "7787ddb4.d25b84",
         "type": "debug",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -658,11 +539,11 @@
         "wires": []
     },
     {
-        "id": "f47d434d.588fc",
+        "id": "82898123.c471d",
         "type": "ui_chart",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "Backyard Temp/Hum chart",
-        "group": "1dd699cd.2169a6",
+        "group": "b57b07a6.a18608",
         "order": 4,
         "width": "6",
         "height": "5",
@@ -692,19 +573,19 @@
             "#c5b0d5"
         ],
         "useOldStyle": false,
-        "x": 980,
-        "y": 280,
+        "x": 980.0000152587891,
+        "y": 245.00000381469727,
         "wires": [
             [],
             []
         ]
     },
     {
-        "id": "e9a9e5d1.ce8598",
+        "id": "e6e26441.680848",
         "type": "ui_gauge",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "Backyard Temperature Gauge",
-        "group": "1dd699cd.2169a6",
+        "group": "b57b07a6.a18608",
         "order": 1,
         "width": "6",
         "height": "3",
@@ -721,30 +602,30 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 986,
-        "y": 100,
+        "x": 982.2500152587891,
+        "y": 51.25000190734863,
         "wires": []
     },
     {
-        "id": "ef91c91f.4d56d8",
+        "id": "c2a3e9b7.2373b8",
         "type": "mqtt in",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "Backyard Temperature",
         "topic": "espnode1/temperature",
         "qos": "1",
-        "broker": "fa443fb9.5c173",
+        "broker": "328894b7.698e5c",
         "x": 217,
         "y": 125.5,
         "wires": [
             [
-                "b0f09508.c92028"
+                "9fb18152.1b0bf"
             ]
         ]
     },
     {
-        "id": "dca98f97.4c53a",
+        "id": "e116c5ef.98f5e8",
         "type": "function",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "CreateHttpRequest",
         "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field2=\" + data; \n    \n    return msg;\n}",
         "outputs": 1,
@@ -753,38 +634,38 @@
         "y": 340,
         "wires": [
             [
-                "f47d434d.588fc",
-                "86397d3.1659b8",
-                "8b748738.4dcdb8",
-                "bfe6017e.fe718"
+                "82898123.c471d",
+                "8d38c2cd.8a60d",
+                "8f0f50a8.f87d",
+                "e165038f.39d37"
             ]
         ]
     },
     {
-        "id": "79224924.904b28",
+        "id": "c31cbd2d.af79c",
         "type": "mqtt in",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "Backyard Light",
         "topic": "espnode1/light",
         "qos": "1",
-        "broker": "fa443fb9.5c173",
+        "broker": "328894b7.698e5c",
         "x": 241,
         "y": 548.5,
         "wires": [
             [
-                "ec1908a9.f93968",
-                "1440ff19.a94601",
-                "f8d1950a.bcb1a8",
-                "6e686ecd.35724"
+                "4f6aedfe.502be4",
+                "76e058a9.db9ed8",
+                "99c5647d.17df98",
+                "4afd1193.ba86"
             ]
         ]
     },
     {
-        "id": "86397d3.1659b8",
+        "id": "8d38c2cd.8a60d",
         "type": "ui_gauge",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "Backyard Humidity Compass",
-        "group": "1dd699cd.2169a6",
+        "group": "b57b07a6.a18608",
         "order": 2,
         "width": "6",
         "height": "3",
@@ -806,9 +687,9 @@
         "wires": []
     },
     {
-        "id": "8b748738.4dcdb8",
+        "id": "8f0f50a8.f87d",
         "type": "debug",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -820,27 +701,27 @@
         "wires": []
     },
     {
-        "id": "febf650a.1e07e8",
+        "id": "94c7facd.0766b8",
         "type": "mqtt in",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "Backyard Humidity",
         "topic": "espnode1/humidity",
         "qos": "1",
-        "broker": "fa443fb9.5c173",
+        "broker": "328894b7.698e5c",
         "x": 231,
         "y": 352.5,
         "wires": [
             [
-                "2d604881.b791b8"
+                "812c0ee1.7e21c"
             ]
         ]
     },
     {
-        "id": "1440ff19.a94601",
+        "id": "76e058a9.db9ed8",
         "type": "ui_gauge",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "Backyard Light Gauge",
-        "group": "1dd699cd.2169a6",
+        "group": "b57b07a6.a18608",
         "order": 3,
         "width": "6",
         "height": "3",
@@ -857,16 +738,16 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 800,
-        "y": 499,
+        "x": 801.2500152587891,
+        "y": 474.00000762939453,
         "wires": []
     },
     {
-        "id": "f8d1950a.bcb1a8",
+        "id": "99c5647d.17df98",
         "type": "ui_chart",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "Backyard Light Chart",
-        "group": "1dd699cd.2169a6",
+        "group": "b57b07a6.a18608",
         "order": 5,
         "width": "6",
         "height": "4",
@@ -896,31 +777,31 @@
             "#c5b0d5"
         ],
         "useOldStyle": false,
-        "x": 799,
-        "y": 551,
+        "x": 799.0000152587891,
+        "y": 584.7500076293945,
         "wires": [
             [],
             []
         ]
     },
     {
-        "id": "6e686ecd.35724",
+        "id": "4afd1193.ba86",
         "type": "debug",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 771,
-        "y": 609,
+        "x": 771.0000152587891,
+        "y": 644.0000095367432,
         "wires": []
     },
     {
-        "id": "17ac2630.a1da6a",
+        "id": "e977fe72.93dab",
         "type": "function",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "CreateHttpRequest",
         "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field5=\" + data; \n    \n    return msg;\n}",
         "outputs": 1,
@@ -929,17 +810,17 @@
         "y": 160,
         "wires": [
             [
-                "c71f176d.d39e08",
-                "21ecf164.d6623e",
-                "55583e43.01f9c",
-                "288fcd2.78f3c32"
+                "79ca6e32.7e7c6",
+                "2002c04b.6d02b",
+                "9260955c.63bbf8",
+                "7be69125.3e0a"
             ]
         ]
     },
     {
-        "id": "c295de4b.70ada",
+        "id": "dd78ceb.867ca3",
         "type": "function",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "CreateHttpRequest",
         "func": "if(!isNaN(msg.payload)) {\n    \n    var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\n    var data = msg.payload;\n\n    msg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field6=\" + data; \n    \n    return msg;\n}",
         "outputs": 1,
@@ -948,79 +829,79 @@
         "y": 360,
         "wires": [
             [
-                "55583e43.01f9c",
-                "72dcc781.afe908",
-                "811411c3.d4fbe",
-                "b2bb54d1.68eae8"
+                "9260955c.63bbf8",
+                "57123d11.440c44",
+                "a9d358e3.366058",
+                "e20a2af7.87d8d8"
             ]
         ]
     },
     {
-        "id": "bfe6017e.fe718",
+        "id": "e165038f.39d37",
         "type": "http request",
-        "z": "467e2699.b39858",
-        "name": "",
+        "z": "7d6d0ff9.579f8",
+        "name": "TS HTTP Request",
         "method": "GET",
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1194,
-        "y": 320,
+        "x": 1147.750015258789,
+        "y": 298.7500047683716,
         "wires": [
             []
         ]
     },
     {
-        "id": "383d5ae5.61f0c6",
+        "id": "44aed715.7bbda8",
         "type": "http request",
-        "z": "467e2699.b39858",
-        "name": "",
+        "z": "7d6d0ff9.579f8",
+        "name": "TS HTTP Request",
         "method": "GET",
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1290,
-        "y": 500,
+        "x": 1230.0000190734863,
+        "y": 526.2500076293945,
         "wires": [
             []
         ]
     },
     {
-        "id": "b2bb54d1.68eae8",
+        "id": "e20a2af7.87d8d8",
         "type": "http request",
-        "z": "58067435.678ddc",
-        "name": "",
+        "z": "25170876.8b9a18",
+        "name": "TS HTTP Request",
         "method": "GET",
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1290,
-        "y": 360,
+        "x": 1170.0000190734863,
+        "y": 410.0000066757202,
         "wires": [
             []
         ]
     },
     {
-        "id": "9f7be6c6.cf16b8",
+        "id": "7f0771c3.f55b",
         "type": "http request",
-        "z": "58067435.678ddc",
-        "name": "",
+        "z": "25170876.8b9a18",
+        "name": "TS HTTP Request",
         "method": "GET",
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1230,
-        "y": 520,
+        "x": 1237.500015258789,
+        "y": 556.2500076293945,
         "wires": [
             []
         ]
     },
     {
-        "id": "c29a548.0ef82a8",
+        "id": "75330e5a.4e6ed",
         "type": "ui_gauge",
-        "z": "96b21e91.63ee2",
+        "z": "5650015b.3b555",
         "name": "Living Room Light Gauge",
-        "group": "24223cde.ee9f04",
+        "group": "aec31fdc.7f265",
         "order": 5,
         "width": "6",
         "height": "3",
@@ -1042,9 +923,9 @@
         "wires": []
     },
     {
-        "id": "7769b757.8a24c8",
+        "id": "5033e534.75b1dc",
         "type": "debug",
-        "z": "96b21e91.63ee2",
+        "z": "5650015b.3b555",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -1056,11 +937,11 @@
         "wires": []
     },
     {
-        "id": "1fe800b0.ba905f",
+        "id": "1e3b3e70.dfd292",
         "type": "ui_chart",
-        "z": "96b21e91.63ee2",
+        "z": "5650015b.3b555",
         "name": "Living Room Light Chart",
-        "group": "24223cde.ee9f04",
+        "group": "aec31fdc.7f265",
         "order": 6,
         "width": "6",
         "height": "4",
@@ -1098,75 +979,75 @@
         ]
     },
     {
-        "id": "c13dcb7.c724d38",
+        "id": "7a96fca6.cea084",
         "type": "mqtt in",
-        "z": "96b21e91.63ee2",
+        "z": "5650015b.3b555",
         "name": "Living Room Light",
         "topic": "espnode2/light",
         "qos": "1",
-        "broker": "bb4f185a.f831f8",
+        "broker": "328894b7.698e5c",
         "x": 181,
         "y": 154.5,
         "wires": [
             [
-                "c29a548.0ef82a8",
-                "1fe800b0.ba905f",
-                "7769b757.8a24c8",
-                "d066c333.eaf2b"
+                "75330e5a.4e6ed",
+                "1e3b3e70.dfd292",
+                "5033e534.75b1dc",
+                "7772c90c.4e70c8"
             ]
         ]
     },
     {
-        "id": "495dff5b.a27c7",
+        "id": "7fcf2dc4.5b2534",
         "type": "http request",
-        "z": "96b21e91.63ee2",
-        "name": "",
+        "z": "5650015b.3b555",
+        "name": "TS HTTP Request",
         "method": "GET",
         "ret": "txt",
         "url": "",
         "tls": "",
-        "x": 1144,
-        "y": 278,
+        "x": 919.0000152587891,
+        "y": 281.50000381469727,
         "wires": [
             []
         ]
     },
     {
-        "id": "d066c333.eaf2b",
+        "id": "7772c90c.4e70c8",
         "type": "function",
-        "z": "96b21e91.63ee2",
+        "z": "5650015b.3b555",
         "name": "CreateHttpRequest",
         "func": "var API_KEY = \"ZJ90P58GA4ATE32Q\"; \n\nvar data = msg.payload;\n\nmsg.url = \"https://api.thingspeak.com/update?api_key=\"+ API_KEY + \"&field4=\" + data; \n\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 924,
-        "y": 278,
+        "x": 672.7500114440918,
+        "y": 281.75000381469727,
         "wires": [
             [
-                "495dff5b.a27c7"
+                "7fcf2dc4.5b2534"
             ]
         ]
     },
     {
-        "id": "8545235a.46bb6",
+        "id": "42ee449a.cc378c",
         "type": "mqtt out",
-        "z": "96b21e91.63ee2",
+        "z": "5650015b.3b555",
         "name": "Lamp Switch",
         "topic": "espnode2/toggle_sw",
         "qos": "1",
-        "retain": "",
-        "broker": "bb4f185a.f831f8",
-        "x": 1430,
-        "y": 500,
+        "retain": "true",
+        "broker": "328894b7.698e5c",
+        "x": 646.9444961547852,
+        "y": 437.08334016799927,
         "wires": []
     },
     {
-        "id": "41e13d88.8812a4",
+        "id": "6c892ab7.8c7ca4",
         "type": "ui_switch",
-        "z": "96b21e91.63ee2",
+        "z": "5650015b.3b555",
         "name": "Lamp Relay Switch",
-        "label": "Lamp",
-        "group": "24223cde.ee9f04",
+        "label": "Lamp Switch",
+        "group": "aec31fdc.7f265",
         "order": 3,
         "width": "6",
         "height": "2",
@@ -1174,26 +1055,26 @@
         "decouple": "false",
         "topic": "active",
         "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
+        "onvalue": "1",
+        "onvalueType": "num",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
+        "offvalue": "0",
+        "offvalueType": "num",
         "officon": "",
         "offcolor": "",
-        "x": 730,
-        "y": 460,
+        "x": 185.0000228881836,
+        "y": 437.0833282470703,
         "wires": [
             [
-                "33fbac06.06ca94"
+                "42ee449a.cc378c"
             ]
         ]
     },
     {
-        "id": "b0f09508.c92028",
+        "id": "9fb18152.1b0bf",
         "type": "function",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "isNotNan",
         "func": "if(!isNaN(msg.payload)) {\n    msg.topic = \"Temperature\";\n    return msg;\n}",
         "outputs": 1,
@@ -1202,14 +1083,14 @@
         "y": 120,
         "wires": [
             [
-                "9414aba9.b12dc8"
+                "3cd52fb4.7e97b"
             ]
         ]
     },
     {
-        "id": "2d604881.b791b8",
+        "id": "812c0ee1.7e21c",
         "type": "function",
-        "z": "467e2699.b39858",
+        "z": "7d6d0ff9.579f8",
         "name": "isNotNan",
         "func": "if(!isNaN(msg.payload)) {\n    msg.topic = \"Humidity\";\n    return msg;\n}",
         "outputs": 1,
@@ -1218,14 +1099,14 @@
         "y": 340,
         "wires": [
             [
-                "dca98f97.4c53a"
+                "e116c5ef.98f5e8"
             ]
         ]
     },
     {
-        "id": "f5468ccb.2d58a",
+        "id": "e55a8be7.9d73a8",
         "type": "function",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "isNotNan",
         "func": "if(!isNaN(msg.payload)) {\n    msg.topic = \"Temperature\";\n    return msg;\n}",
         "outputs": 1,
@@ -1234,14 +1115,14 @@
         "y": 160,
         "wires": [
             [
-                "17ac2630.a1da6a"
+                "e977fe72.93dab"
             ]
         ]
     },
     {
-        "id": "89ffa033.7849c",
+        "id": "8c542dcc.3764e",
         "type": "function",
-        "z": "58067435.678ddc",
+        "z": "25170876.8b9a18",
         "name": "isNotNan",
         "func": "if(!isNaN(msg.payload)) {\n    msg.topic = \"Humidity\";\n    return msg;\n}",
         "outputs": 1,
@@ -1250,187 +1131,23 @@
         "y": 360,
         "wires": [
             [
-                "c295de4b.70ada"
+                "dd78ceb.867ca3"
             ]
         ]
     },
     {
-        "id": "92e425b.14732d8",
-        "type": "function",
-        "z": "96b21e91.63ee2",
-        "name": "msg",
-        "func": "\nreturn {topic: '', payload: msg};",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 270,
-        "y": 740,
+        "id": "6bd34785.0ff4e8",
+        "type": "mqtt in",
+        "z": "25170876.8b9a18",
+        "name": "Bedroom Temperature",
+        "topic": "espnode3/temperature",
+        "qos": "1",
+        "broker": "328894b7.698e5c",
+        "x": 170,
+        "y": 159.50000190734863,
         "wires": [
             [
-                "2695482d.a4b8e8"
-            ]
-        ]
-    },
-    {
-        "id": "189b3864.048938",
-        "type": "ui_template",
-        "z": "96b21e91.63ee2",
-        "group": "24223cde.ee9f04",
-        "name": "Date Input",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "format": "<input ng-model=\"me.item.value\" type=\"datetime-local\" style=\"z-index: 1;\" ng-change=\"send(me.item.value)\">",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 102.00042343139648,
-        "y": 745.000002861023,
-        "wires": [
-            [
-                "92e425b.14732d8"
-            ]
-        ]
-    },
-    {
-        "id": "2695482d.a4b8e8",
-        "type": "function",
-        "z": "96b21e91.63ee2",
-        "name": "time string to millis",
-        "func": "var d = new Date(msg.payload); \nmsg.topic = \"teargetTimestamp\"\nmsg.payload = d.getTime();\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 448.00035858154297,
-        "y": 742.6668667793274,
-        "wires": [
-            [
-                "58b7fb88.55aee4"
-            ]
-        ]
-    },
-    {
-        "id": "58b7fb88.55aee4",
-        "type": "function",
-        "z": "96b21e91.63ee2",
-        "name": "set countdown in seconds",
-        "func": "msg.topic = \"countdown\";\nmsg.payload = Math.floor(((msg.payload - Date.now()) / 1000));\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 678.0006980895996,
-        "y": 728.6670036315918,
-        "wires": [
-            [
-                "33fbac06.06ca94"
-            ]
-        ]
-    },
-    {
-        "id": "33fbac06.06ca94",
-        "type": "function",
-        "z": "96b21e91.63ee2",
-        "name": "reduce countdown",
-        "func": "context.countdown = context.countdown || 0;\ncontext.active = context.active || false;\nif(msg.topic === \"countdown\")\n context.countdown = msg.payload;\nif(msg.topic === \"active\")\n{\n context.active = msg.payload;\n if(context.active === false)\n {\n msg.topic = \"countdown\";\n msg.payload = \"\";\n return msg;\n }\n}\nif(msg.topic === \"tick\" && context.countdown > 0 && context.active)\n{\n context.countdown--;\n msg.topic = \"countdown\";\n msg.payload = context.countdown;\n return msg;\n}\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 930.0008773803711,
-        "y": 749.3335809707642,
-        "wires": [
-            [
-                "4a13238e.a9bf3c",
-                "70b94c47.418824"
-            ]
-        ]
-    },
-    {
-        "id": "c236e97c.d3b208",
-        "type": "inject",
-        "z": "96b21e91.63ee2",
-        "name": "",
-        "topic": "tick",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "1",
-        "crontab": "",
-        "once": false,
-        "x": 660,
-        "y": 860,
-        "wires": [
-            [
-                "33fbac06.06ca94"
-            ]
-        ]
-    },
-    {
-        "id": "4a13238e.a9bf3c",
-        "type": "ui_text",
-        "z": "96b21e91.63ee2",
-        "group": "24223cde.ee9f04",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "name": "countdown",
-        "label": "Countdown",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "x": 1159.1674003601074,
-        "y": 745.666995048523,
-        "wires": []
-    },
-    {
-        "id": "70b94c47.418824",
-        "type": "function",
-        "z": "96b21e91.63ee2",
-        "name": "start if countdown 0",
-        "func": "if(msg.payload === 0)\n{\n msg.payload = \"1\";\n return msg;\n}",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1171.1672325134277,
-        "y": 670.666989326477,
-        "wires": [
-            [
-                "ed161f91.505f4",
-                "8545235a.46bb6"
-            ]
-        ]
-    },
-    {
-        "id": "ed161f91.505f4",
-        "type": "function",
-        "z": "96b21e91.63ee2",
-        "name": "Stop Countdown",
-        "func": "msg.topic = \"active\";\nmsg.payload = false;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1457.1672401428223,
-        "y": 668.6669902801514,
-        "wires": [
-            [
-                "41e13d88.8812a4"
-            ]
-        ]
-    },
-    {
-        "id": "ee7799f8.7dae18",
-        "type": "ui_button",
-        "z": "96b21e91.63ee2",
-        "name": "",
-        "group": "24223cde.ee9f04",
-        "order": 1,
-        "width": "3",
-        "height": "1",
-        "passthru": false,
-        "label": "Start/Stop",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "1",
-        "payloadType": "str",
-        "topic": "",
-        "x": 1183.1672248840332,
-        "y": 503.6669397354126,
-        "wires": [
-            [
-                "ed161f91.505f4",
-                "8545235a.46bb6"
+                "e55a8be7.9d73a8"
             ]
         ]
     }
