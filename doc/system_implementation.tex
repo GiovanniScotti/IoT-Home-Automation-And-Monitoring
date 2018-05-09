@@ -179,7 +179,7 @@ Pin D0 (GPIO 16) needs to be connected to RST to wake up the device when deep sl
 \end{figure}
 
 \subsubsection{Code}
-The main parts of the code are described by the following tables. In more detail, libraries are reported by Table \ref{esp12_code_libraries}, define preprocessor directives by Table \ref{esp12_code_defines}, global variables by Table \ref{label} and, lastly, functions by Table \ref{label}.
+The main parts of the code are described by the following tables. In more detail, libraries are reported by Table \ref{esp12_code_libraries}, define preprocessor directives by Table \ref{esp12_code_defines}, global variables by Table \ref{esp12_global_variables} and, lastly, functions by Table \ref{esp12_functions}.
 
 \noindent\begin{minipage}{\textwidth}
 \begingroup
@@ -190,12 +190,12 @@ The main parts of the code are described by the following tables. In more detail
 		\textbf{Library} & \textbf{Description} \\
 		\hline
 		\hline
-		ESP8266WiFi.h & Required to enable WiFi connectivity. \\
+		\texttt{ESP8266WiFi.h} & Required to enable WiFi connectivity. \\
 		\hline
-		DHT.h & Required to interface with DHT sensors. \\
+		\texttt{DHT.h} & Required to interface with DHT sensors. \\
 		\hline
-		Adafruit\_MQTT.h & Required to take advantage of MQTT protocol. \\ 
-		Adafruit\_MQTT\_Client.h &  \\
+		\texttt{Adafruit\_MQTT.h} & Required to take advantage of MQTT protocol. \\ 
+		\texttt{Adafruit\_MQTT\_Client.h} &  \\
 		\hline
 
 	\caption{Libraries involved in the sketches for ESP-12E boards.}
@@ -213,31 +213,28 @@ The main parts of the code are described by the following tables. In more detail
 		\textbf{\#define Directive} & \textbf{Description} \\
 		\hline
 		\hline
-		DEBUG & Enables debug over serial communication. \\
+		\texttt{DEBUG} & Enables debug over serial communication. \\
 		\hline
+		\texttt{WLAN\_SSID} & Name of the WiFi network to connect to. \\
+		\texttt{WLAN\_PASS} & Password to join the WiFi network. \\ 
 		\hline
-		WLAN\_SSID & Name of the WiFi network to connect to. \\
-		WLAN\_PASS & Password to join the WiFi network. \\ 
+		\texttt{HOST} & MQTT broker IP address. \\
+		\texttt{PORT} & MQTT broker port. \\
+		\texttt{USERNAME} & Credentials to set up the MQTT connection. \\
+		\texttt{PASSWORD} & Credentials to set up the MQTT connection. \\
 		\hline
+		\texttt{SLEEP\_TIME}    & Deep sleep duration. \\
+		\texttt{CONN\_ATTEMPTS} & Number of attempts to get WiFi connection \\
+					            & before entering deep sleep mode. \\
+		\texttt{MQTT\_ATTEMPTS} & Number of attempts to connect to MQTT service \\
+		                        & provided by the broker. \\
 		\hline
-		HOST & MQTT broker IP address. \\
-		PORT & MQTT broker port. \\
-		USERNAME & Credentials to set up the MQTT connection. \\
-		PASSWORD & Credentials to set up the MQTT connection. \\
+		\texttt{DHT\_TYPE} & Type of DHT sensor. \\
+		\texttt{DHT\_PIN}  & Digital pin to read data coming from DHT sensor. \\
 		\hline
-		\hline
-		SLEEP\_TIME & Deep sleep duration. \\
-		CONN\_ATTEMPTS & Number of attempts to get WiFi connection before entering deep sleep mode. \\
-		MQTT\_ATTEMPTS & Number of attempts to connect to MQTT service provided by the broker. \\
-		\hline
-		\hline
-		DHT\_TYPE & Type of DHT sensor. \\
-		DHT\_PIN & Digital pin to read data coming from DHT sensor. \\
-		\hline
-		\hline
-		LED\_RED & GPIO that controls the red led. \\
-		LED\_YELLOW & GPIO in charge of controlling the yellow led. \\
-		LED\_GREEN & GPIO that controls the green led. \\
+		\texttt{LED\_RED}    & GPIO that controls the red led. \\
+		\texttt{LED\_YELLOW} & GPIO in charge of controlling the yellow led. \\
+		\texttt{LED\_GREEN} & GPIO that controls the green led. \\
 		\hline
 
 	\caption{Define directives specified in the sketches for ESP-12E boards.}
@@ -246,7 +243,64 @@ The main parts of the code are described by the following tables. In more detail
 \endgroup
 \end{minipage}
 
-\textbf{TODO:} mancano tabelle global variables e funzioni
+\noindent\begin{minipage}{\textwidth}
+	\begingroup
+	\setlength{\LTleft}{-20cm plus -1fill}
+	\setlength{\LTright}{\LTleft}
+	\begin{longtable}{l | l}
+		\hline
+		\textbf{Global Variable} & \textbf{Description} \\
+		\hline
+		\hline
+		\texttt{client} & This object is instantiated to enable WiFi connectivity. \\
+		\hline
+		\texttt{mqtt} & This object handles MQTT connection with the broker. \\
+		\hline
+		\texttt{temperature} & Objects of type Adafruit\_MQTT\_Publish in order to send \\ 
+		\texttt{humidity}    & data to the broker. They are initialized with the appropriate \\
+		\texttt{light}       & topic depending on the node that collects information.   \\
+		\hline
+		\texttt{dht} & Object that represent the DHT temperature and humidity sensor. \\
+		             & It is instantiated specifying the type of sensor and the input pin. \\
+		\hline
+		
+		\caption{Global variables declared in the sketches for ESP-12E boards.}
+		\label{esp12_global_variables}
+	\end{longtable}
+	\endgroup
+\end{minipage}
+
+\noindent\begin{minipage}{\textwidth}
+	\begingroup
+	\setlength{\LTleft}{-20cm plus -1fill}
+	\setlength{\LTright}{\LTleft}
+	\begin{longtable}{l | l}
+		\hline
+		\textbf{Function} & \textbf{Description} \\
+		\hline
+		\hline
+		void \texttt{setup()} & Calls functions to establish WiFi connection and set up \\
+							  & MQTT. It publishes data and enters deep sleep state. \\
+		\hline
+		void \texttt{loop()} & This function is not required since deep sleep is enabled. \\
+						     & Every time the ESP-12E board restarts, the setup function is \\
+		                     & executed and deep sleep state is entered. \\
+		\hline
+		void \texttt{enterDeepSleep()} & Turns off LEDs and WiFi and enters deep sleep state. \\
+		\hline
+		void \texttt{MQTT\_connect()} & Connects to MQTT service provided by the MQTT broker. \\
+		\hline
+		void \texttt{ledOff()} & Turns off the status LEDs.\\
+		void \texttt{ledRed()} & Turns on the red LED.\\
+		void \texttt{ledYellow()} & Turns on the yellow LED.\\
+		void \texttt{ledGreen()} & Turns on the green LED.\\
+		\hline
+		
+		\caption{Functions used in the sketches for ESP-12E boards.}
+		\label{esp12_functions}
+	\end{longtable}
+	\endgroup
+\end{minipage}
 
 \subsection{ESP-32: Sensors, Wiring and Code}
 An accurate picture of the board pinout is shown in Figure \ref{esp32_pinout}. As for ESP8266, also ESP32 requires 3.3V to operate. The board is provided with a voltage regulator and can be powered up by an external power source through USB connection or \textit{Vin} pin.
@@ -276,3 +330,122 @@ The advanced WiFi connectivity of the board gives the possibility to remotely co
 As mentioned earlier, in order to reduce the latency to turn on and off the relay, the module is always active and does not enter any sleep state.
 
 % TODO: piazzare schematico ESP-32 qui.
+
+\subsubsection{Code}
+As for ESP-12 boards, the main parts of the code are described by the following tables. In more detail, libraries are reported by Table \ref{esp32_code_libraries}, define preprocessor directives by Table \ref{esp32_code_defines}, global variables by Table \ref{esp32_global_variables} and, lastly, functions by Table \ref{esp32_functions}.
+
+\noindent\begin{minipage}{\textwidth}
+	\begingroup
+	\setlength{\LTleft}{-20cm plus -1fill}
+	\setlength{\LTright}{\LTleft}
+	\begin{longtable}{l | l}
+		\hline
+		\textbf{Library} & \textbf{Description} \\
+		\hline
+		\hline
+		\texttt{WiFi.h} & Required to enable WiFi connectivity. \\
+		\hline
+		\texttt{Adafruit\_MQTT.h} & Required to deal with MQTT protocol. \\ 
+		\texttt{Adafruit\_MQTT\_Client.h} & \\
+		\hline
+		
+		\caption{Libraries involved in the sketch for ESP-32 board.}
+		\label{esp32_code_libraries}
+	\end{longtable}
+	\endgroup
+\end{minipage}
+
+\noindent\begin{minipage}{\textwidth}
+	\begingroup
+	\setlength{\LTleft}{-20cm plus -1fill}
+	\setlength{\LTright}{\LTleft}
+	\begin{longtable}{l | l}
+		\hline
+		\textbf{\#define Directive} & \textbf{Description} \\
+		\hline
+		\hline
+		\texttt{DEBUG} & Enables debug over serial communication. \\
+		\hline
+		\texttt{WLAN\_SSID} & Name of the WiFi network to connect to. \\
+		\texttt{WLAN\_PASS} & Password to join the WiFi network. \\ 
+		\hline
+		\texttt{HOST} & MQTT broker IP address. \\
+		\texttt{PORT} & MQTT broker port. \\
+		\texttt{USERNAME} & Credentials to set up the MQTT connection. \\
+		\texttt{PASSWORD} & Credentials to set up the MQTT connection. \\
+		\hline
+		\texttt{LED\_RED}    & GPIO that controls the red led. \\
+		\texttt{LED\_YELLOW} & GPIO in charge of controlling the yellow led. \\
+		\texttt{LED\_GREEN} & GPIO that controls the green led. \\
+		\hline
+		\texttt{LIGHT\_ADC} & GPIO that provides ADC functionality to sample the \\
+							& analog voltage coming from the photoresistor. \\
+		\hline
+		\texttt{SWITCH\_PIN} & GPIO to switch on and off the relay module. \\
+		\hline
+		\texttt{WAIT\_TIME} & Interval of time to listen to subscription messages. \\
+		\hline
+		
+		\caption{Define directives specified in the sketch for ESP-32 board.}
+		\label{esp32_code_defines}
+	\end{longtable}
+	\endgroup
+\end{minipage}
+
+\noindent\begin{minipage}{\textwidth}
+	\begingroup
+	\setlength{\LTleft}{-20cm plus -1fill}
+	\setlength{\LTright}{\LTleft}
+	\begin{longtable}{l | l}
+		\hline
+		\textbf{Global Variable} & \textbf{Description} \\
+		\hline
+		\hline
+		\texttt{client} & This object is instantiated to enable WiFi connectivity. \\
+		\hline
+		\texttt{mqtt} & This object handles MQTT connection with the broker. \\
+		\hline
+		\texttt{light} & Object of type Adafruit\_MQTT\_Publish in order to send \\
+					   & light intensity data to the broker. \\
+		\hline
+		\texttt{toggle\_switch} & Object of type Adafruit\_MQTT\_Subscribe to listen to \\
+								& MQTT messages to enable and disable the relay module. \\
+		\hline
+		\texttt{sw\_status} & Keeps the status of the relay module. \\
+		\hline
+		
+		\caption{Global variables declared in the sketch for ESP-32 board.}
+		\label{esp32_global_variables}
+	\end{longtable}
+	\endgroup
+\end{minipage}
+
+\noindent\begin{minipage}{\textwidth}
+	\begingroup
+	\setlength{\LTleft}{-20cm plus -1fill}
+	\setlength{\LTright}{\LTleft}
+	\begin{longtable}{l | l}
+		\hline
+		\textbf{Function} & \textbf{Description} \\
+		\hline
+		\hline
+		void \texttt{setup()} & Calls functions to establish WiFi connection and set up MQTT. \\
+		\hline
+		void \texttt{loop()} & Publishes data about light intensity and listens to messages \\
+							 & related to the relay status for WAIT\_TIME milliseconds. \\
+		\hline
+		void \texttt{MQTT\_connect()} & Connects to MQTT service provided by the MQTT broker. \\
+		\hline
+		void \texttt{toggleSwitch()} & Flips the status (active/inactive) of the relay module. \\
+		\hline
+		void \texttt{ledOff()} & Turns off the status LEDs.\\
+		void \texttt{ledRed()} & Turns on the red LED.\\
+		void \texttt{ledYellow()} & Turns on the yellow LED.\\
+		void \texttt{ledGreen()} & Turns on the green LED.\\
+		\hline
+		
+		\caption{Functions used in the sketch for ESP-32 board.}
+		\label{esp32_functions}
+	\end{longtable}
+	\endgroup
+\end{minipage}
