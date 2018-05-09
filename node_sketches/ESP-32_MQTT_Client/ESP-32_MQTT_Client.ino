@@ -30,7 +30,7 @@
 #define LED_GREEN     32  // GPIO 32
 
 #define LIGHT_ADC     33
-#define SWITCH        27
+#define SWITCH_PIN    27
 
 // Subscription wait time in milliseconds
 #define WAIT_TIME   5000
@@ -52,8 +52,8 @@ void setup() {
   pinMode(LED_YELLOW, OUTPUT);  // Yellow LED - GPIO
   pinMode(LED_GREEN, OUTPUT);   // Green LED - GPIO
 
-  pinMode(SWITCH, OUTPUT);      // Switch (relay) control
-  digitalWrite(SWITCH, LOW);
+  pinMode(SWITCH_PIN, OUTPUT);      // Switch (relay) control
+  digitalWrite(SWITCH_PIN, LOW);
   
   #ifdef DEBUG
     Serial.begin(115200);
@@ -172,10 +172,10 @@ void MQTT_connect() {
 // ***** (RELAY) SWITCH CONTROL *****
 void toggleSwitch() {
   if(sw_status) {
-    digitalWrite(SWITCH, HIGH);
+    digitalWrite(SWITCH_PIN, HIGH);
   }
   else {
-    digitalWrite(SWITCH, LOW);
+    digitalWrite(SWITCH_PIN, LOW);
   }
 }
 
