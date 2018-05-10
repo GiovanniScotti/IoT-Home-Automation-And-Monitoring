@@ -329,7 +329,13 @@ The advanced WiFi connectivity of the board gives the possibility to remotely co
 
 As mentioned earlier, in order to reduce the latency to turn on and off the relay, the module is always active and does not enter any sleep state.
 
-% TODO: piazzare schematico ESP-32 qui.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./pictures/ESP-32_wiring.png}
+		\caption{ESP-32 schematic with sensors, actuators and status LEDs.}
+		\label{esp32_wiring}
+	\end{center}
+\end{figure}
 
 \subsubsection{Code}
 As for ESP-12 boards, the main parts of the code are described by the following tables. In more detail, libraries are reported by Table \ref{esp32_code_libraries}, define preprocessor directives by Table \ref{esp32_code_defines}, global variables by Table \ref{esp32_global_variables} and, lastly, functions by Table \ref{esp32_functions}.
