@@ -122,7 +122,7 @@ Two kinds of boards have been selected to play the role of MQTT client; namely N
 
 Both the boards can be easily programmed using the Arduino IDE after installing the appropriate cores via Arduino Boards Manager. The core installation will not be covered by this document.
 
-Please notice that there is not a particular reason to use one specific board or the other: they both can fulfill the requirements of the project. The usage of different boards creates heterogeneity and variety, which are always present in the real world. 
+Please notice that there is not a particular reason to use one specific board or the other: they both can fulfill the requirements of the system. The usage of different boards creates heterogeneity and variety, which are always present in the real world. 
 
 \subsection{ESP-12E: Sensors, Wiring and Code}
 \label{esp12_getting_started}
@@ -145,7 +145,7 @@ Three LEDs give information about the status of the board:
 
 \begin{itemize}
 	\item \textbf{\textcolor{red}{Red}}: the board is trying to get WiFi access.
-	\item \textbf{\textcolor[rgb]{1,0.8,0}{Yellow}}: the board is setting up a MQTT connection. The MQTT broker must be up and running to succeed.
+	\item \textbf{\textcolor[rgb]{1,0.8,0}{Yellow}}: the board is setting up MQTT connection. The MQTT broker must be up and running to succeed.
 	\item \textbf{\textcolor[rgb]{0,0.6,0}{Green}}: the board is active and it is sending sensor data to the MQTT broker or listening to messages related to its subscriptions.
 \end{itemize}
 
@@ -159,7 +159,7 @@ Since the system involves two ESP-12E boards, both the sensors are used for the 
 \subsubsection{Light sensor}
 A light sensor can be used to detect the current ambient light level, in particular the presence or absence of light. There exist several types of light sensors: photoresistors, phototransistors, photodiodes...
 
-The chosen approach is making use of a photoresistor, taking advantage of the ADC provided by ESP boards.
+The chosen approach is making use of a photoresistor, taking advantage of the ADC provided by the ESP boards.
 
 A photoresistor changes its resistance based on the amount of light that falls upon it: the more the light, the less the resistance. A simple voltage divider can be used to give an input to the ADC, as illustrated by Figure \ref{esp12_wiring}.
 
@@ -261,7 +261,8 @@ The main parts of the code are described by the following tables. In more detail
 		\texttt{light}       & topic depending on the node that collects information.   \\
 		\hline
 		\texttt{dht} & Object that represent the DHT temperature and humidity sensor. \\
-		             & It is instantiated specifying the type of sensor and the input pin. \\
+		             & It is instantiated specifying the type of sensor and the input pin \\
+		             & on the board. \\
 		\hline
 		
 		\caption{Global variables declared in the sketches for ESP-12E boards.}
@@ -323,7 +324,7 @@ Three LEDs fit out information about the status of the board. They work exactly 
 A photoresistor and a voltage divider are used to provide light intensity information. The operating principle is the same as for ESP-12E boards: please, make reference to subsection \ref{esp12_getting_started}.
 
 \subsubsection{Relay module}
-A relay is an electrical switch operated by an electromagnet. Relays are usually used to control a high voltage circuit with a low power one. A microcontroller can drive relays with one of its digital pins: this is exactly what ESP32 is used for.
+A relay is an electrical switch operated by an electromagnet. Relays are usually used to control a high voltage circuit with a low power one. A microcontroller can drive relays with one of its digital output pins: this is exactly what ESP32 is used for.
 
 The advanced WiFi connectivity of the board gives the possibility to remotely control the digital pin hooked to the relay module turning it into a remote switch.
 
