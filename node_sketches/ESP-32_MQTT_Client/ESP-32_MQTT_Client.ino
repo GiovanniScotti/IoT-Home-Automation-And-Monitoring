@@ -19,7 +19,7 @@
 #define WLAN_PASS   ""
 
 // MQTT broker settings
-#define HOST        "192.168.1.50"
+#define HOST        "192.168.43.100"
 #define PORT        1883
 #define USERNAME    "admin"
 #define PASSWORD    "hamrpi"
