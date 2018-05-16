@@ -19,6 +19,7 @@ Furthermore, data are forwarded to ThingSpeak by the Raspberry Pi board in order
 	\end{center}
 \end{figure}
 
+\newpage
 \section{Configuring and Programming the RPi}
 The Raspberry Pi is a tiny single-board computer featuring a Broadcom System-On-Chip with an integrated ARM compatible processor. There exist several different generations and models and its role in the system will suit them all. Anyway, using a Pi 3 Model B is highly recommended: it has a quad-core processor and on-board WiFi, Bluetooth and USB boot capabilities which do not require any extra module.
 
@@ -40,8 +41,7 @@ Setting up a static IP address for the Raspberry is strongly recommended. It can
 Before proceeding with the following sections, all the software must be up-to-date. This straightforward operation is carried out by executing the commands below in a terminal window:
 
 \begin{verbatim}
-    sudo apt-get update
-    sudo apt-get upgrade
+    sudo apt-get update && sudo apt-get upgrade
 \end{verbatim}
 
 \subsection{MQTT}
@@ -98,16 +98,13 @@ The following two lines must be added to the \texttt{mosquitto.conf} file.
 As far as this system is concerned, just a single user has been created to manage the MQTT connection: username is \texttt{admin} and password is \texttt{hamrpi}. These credentials are used to set up MQTT by Node-RED and any ESP node.
 
 \subsection{Node-RED}
-
-\subsubsection{Description}
 Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways.
-It provices a browser-based editor that makes it easy to wire together flows using the wide range of nodes in the palette that can be deployed to its runtime in a single-click.
+It provides a browser-based editor that makes it easy to combine flows using the wide range of nodes in the palette, which can be deployed to its runtime in a single click.
 
 \subsubsection{Installation}
-Node-RED comes preinstalled on the full Raspbian SD card image that can be donwloaded from RaspberryPi.org.
+Node-RED comes pre-installed on the full Raspbian OS image that can be downloaded from \textit{raspberrypi.org} website.
 
-\noindent
-If you have a version of Raspbian, or other Debian based install, such as Ubuntu, or Diet-Pi, that doesn't have Node-RED already installed, you can install or upgrade using the Node-RED upgrade script command:
+In case Node-RED is not already installed on the user Linux-like operating system, the Node-RED upgrade script should be executed:
 
 \begin{verbatim}
 bash <(curl -sL https://raw.githubusercontent.com/node-red
@@ -115,182 +112,169 @@ bash <(curl -sL https://raw.githubusercontent.com/node-red
 \end{verbatim}
 
 \noindent
-It is also necessary to install another node component to manage the secure access of node-red.
-\newline
-\newline
-From the Raspberry Pi it is needed to run the following commands:
+It is also necessary to install another core component to manage authentication and secure access. From the Raspberry Pi terminal it is needed to run the following commands:
+
 \begin{verbatim}
-cd ~/.node-red
-sudo npm install -g node-red-admin
+    cd ~/.node-red
+    sudo npm install -g node-red-admin
 \end{verbatim}
 
 \noindent
-Finally inside node-red it is necessary to install a plugin to manage the connection with the Raspberry Pi through the MQTT protocol.
-\newline
-\newline
-Inside the settings of Node-red, you go to Manage Pallette and install the plugin:
-\begin{verbatim}
-node-red-bashboard
-\end{verbatim}
+Finally, from the Node-RED development environment, it is necessary to install a plug-in to provide the user with an interactive and awesome dashboard that sums up all the collected data from sensors.
+
+From the Node-RED settings, click on the \textit{Manage Palette} menu entry and get the option to install extensions on the \textit{install} tab. At this point, proceed with the installation of \texttt{node-red-dashboard} extension.
+
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=1.0\textwidth]{./pictures/node-red-dashboard}
-		\caption{Node-Red Manage Pallette UI}
-		\label{mqtt_functioning}
+		\caption{Node-RED Manage Palette. \textit{Install} tab has been entered to proceed with the extension installation.}
+		\label{manage_palette_ui}
 	\end{center}
 \end{figure}
 
-\subsubsection{Access Control}
-The following tasks must be performed from a terminal ssh session towards the Raspberry Pi.
-\newline
-You have to enable the secure access to node-red, setting an admin username and password, and it is also possibile to add other users with a different permissions.
-\newline
-\newline
-The first step is to generate the hash of the admin password, that'll be saved in the configuration file of node-red ''setting.js'', simply running the following command:
+\subsubsection{Security}
+Once \texttt{node-red-admin} has been installed, secure access must be properly configured.
+To begin with, a password hash has to be created. It will be saved in the Node-RED configuration file \texttt{setting.js}. This operation can be simply performed by running:
+
 \begin{verbatim}
-node-red-admin hash-pw
+    node-red-admin hash-pw
 \end{verbatim}
-After that we insert the chosen password and as a result we get the hash of the password.
+
+\noindent
+After that, insert the chosen password and copy the related hash, as in Figure \ref{hash_production}.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=1.0\textwidth]{./pictures/node-red_hash_password}
-		\caption{Node-Red hash password generation example}
-		\label{mqtt_functioning}
+		\caption{Hash password generation example.}
+		\label{hash_production}
 	\end{center}
 \end{figure}
 
 \noindent
-The second step is to modify the configuration file ''settings.js'' of node-red.
-\newline
-The file is located usually at the following path
+The second step is to modify the configuration file \texttt{settings.js} adding a user and the previously generated password hash. The file can be opened by typing in the terminal:
+
 \begin{verbatim}
-cd ~/.node-red
+    nano ~/.node-red/settings.js
 \end{verbatim}
-Then open the file \emph{settings.js} with nano or vim.
-\begin{verbatim}
-vim settings.js
-\end{verbatim}
-At this point we need to change the file as depicted in the image below.
+
+\noindent
+Users have to be added to a list using JSON syntax. Proceed as shown in Figure \ref{secure_settings} to add a user whose username is \textit{admin} and whose password corresponds to the pasted hash.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=1.0\textwidth]{./pictures/node-red-secure}
-		\caption{Node-Red config file setting.js secure access enabling}
-		\label{mqtt_functioning}
+		\caption{Node-RED \texttt{setting.js} file. Secure access enabling.}
+		\label{secure_settings}
 	\end{center}
 \end{figure}
 
 \noindent
-As final step you have to restart the node-red service such that when you switch-on the Raspberry Pi node-red automatically starts.
-\newline
-This feature is activated running the following code:
+To start Node-RED automatically on power up and reboot the Raspberry Pi board, execute the next commands:
+
 \begin{verbatim}
-sudo systemctl enable nodered.service
-reboot
+    sudo systemctl enable nodered.service
+    sudo reboot
 \end{verbatim}
-Note that you have to reboot the system after the previous modifications.
-\newline
-\newline
-After the system is restarted if you try to connect to the node-red URL, you should have something like what depicted below: 
+
+\noindent
+After the system has been rebooted, whenever Node-RED is accessed for the first time, it must ask for valid user credentials.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=1.0\textwidth]{./pictures/node-red-UI-login}
-		\caption{Node-Red UI login}
-		\label{mqtt_functioning}
+		\caption{Node-RED login screen.}
+		\label{credentials_ui}
 	\end{center}
 \end{figure}
 
+\subsubsection{Flow building blocks}
+The main building blocks used in the development environment to create the dashboard and provide MQTT connection are the following:
 
-
-\subsubsection{Main Block Nodes}
-The nodes used for the UI of the dashboard are the followings:
 \begin{itemize}
-    \item \textbf{MQTT}: taken from the input and also output nodes menu.\\
-    This node is used to manage the connection with the Mqtt broker installed in the Raspberry PI to get the data based on the subscriptions of the nodes.
-    \item \textbf{GAUGE}: taken from the dashboard nodes menu.\\
-    This node allows to display the current value measured from a certain sensor with different types of representation (i.e. gauge, donut, compass or level) in the dashboard UI.
-    \item \textbf{CHART}: taken from the dashboard nodes menu.\\
-    This node is used to show the most recent data captured by the motes into the dashboard UI.
-    \item \textbf{SWITCH}: taken from the dashboard nodes menu.\\
-    This node is responsible for managing the status of the relay that one of the motes is equipped with.
+    \item \textbf{MQTT}: taken from \textit{input} and \textit{output} menus.\\
+    These nodes are used to manage the connection with the MQTT broker installed on the Raspberry Pi to get and send data based on the subscriptions and publications of the ESP nodes.
+    \item \textbf{GAUGE}: taken from the \textit{dashboard} menu.\\
+    This node allows to display the current value measured from a certain sensor with different types of representation (i.e. gauge, donut, compass or level) in the dashboard.
+    \item \textbf{CHART}: taken from the \textit{dashboard} menu.\\
+    This node is used to show the most recent data captured by sensors in the dashboard.
+    \item \textbf{SWITCH}: taken from the \textit{dashboard} menu.\\
+    This node is responsible for managing the status of the relay that the ESP-32 board is equipped with.
 \end{itemize}
 
-\subsubsection{Dashboard UI}
-The dashboard looks like this:
+\subsubsection{Dashboard}
+The dashboard is basically a UI that neatly displays data. Desktop version for large screens is depicted by Figure \ref{desktop_ui} while mobile version designed for smaller screens is shown in Figure \ref{mobile_ui}.
+
+The dashboard can be accessed at the same address of the development environment plus \texttt{/ui} at the end:
+
+\begin{verbatim}
+    http://{Raspberry Pi IP address}:1880/ui
+\end{verbatim}
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=1.0\textwidth]{./pictures/laptop_dashboard}
-		\caption{Node-Red dashboard laptop UI}
-		\label{mqtt_functioning}
+		\includegraphics[width=1.0\textwidth]{./pictures/laptop_dashboard.JPG}
+		\caption{Node-RED dashboard: desktop version.}
+		\label{desktop_ui}
 	\end{center}
 \end{figure}
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.3\textwidth]{./pictures/smartphone_dashboard.PNG}
-		\caption{Node-Red dashboard smartphone UI}
-		\label{mqtt_functioning}
+		\includegraphics[width=0.3\textwidth]{./pictures/smartphone_dashboard.JPG}
+		\caption{Node-RED dashboard: mobile version.}
+		\label{mobile_ui}
 	\end{center}
 \end{figure}
 
 \subsection{ThingSpeak}
-
-\subsubsection{Description}
-ThingSpeak  is an IoT platform that lets you collect and store sensor data in the cloud and develop IoT applications. The ThingSpeak IoT platform provides apps that let you analyze and visualize your data in MATLAB, and then act on the data. Sensor data can be sent to ThingSpeak from Arduino, Raspberry Pi, BeagleBone Black, and other hardware.
+ThingSpeak is an IoT platform that allows to collect and store sensor data in the cloud. It provides applications that make possible to analyze and visualize user data in MATLAB. Sensor data can be sent to ThingSpeak from Arduino, Raspberry Pi, BeagleBone Black, and many other boards equipped with a microcontroller and Internet connectivity.
 
 \subsubsection{Channel setup}
-Once logged on ThingSpeak you have to create a new channel and set it up in the following way.
+Once logged in ThingSpeak, create a new channel and set it up as shown in Figure \ref{channel_setup}. Every field is linked to a different sensor and collects all the data sent by it.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./pictures/thingspeak-channels-setup}
-		\caption{ThingSpeak channels setup}
-		\label{mqtt_functioning}
+		\includegraphics[width=\textwidth]{./pictures/thingspeak-channels-setup}
+		\caption{ThingSpeak channel setup.}
+		\label{channel_setup}
 	\end{center}
 \end{figure}
 
 \noindent
-Every field is linked to a different sensor of a mote and collects all the data that receives from it.
-\newline
-\newline
-After this you need to copy the API Key that is used to send data to ThingSpeak from Node-Red.
-\newline
-In particular you have to copy the \emph{Update a Channel Feed} Url.
+After this, copy the API key that is required to send data to ThingSpeak from Node-RED. In more detail, the \textit{Update a Channel Feed} URL must be used to perform HTTP get requests.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./pictures/thingspeak-apis}
-		\caption{ThingSpeak APIs}
-		\label{mqtt_functioning}
+		\includegraphics[width=\textwidth]{./pictures/thingspeak-apis}
+		\caption{ThingSpeak APIs.}
+		\label{thingspeak_apis}
 	\end{center}
 \end{figure}
 
 \subsubsection{Node-RED communication}
 
-The nodes used for the communication with ThingSpeak are the following
+The blocks used to enable the communication with ThingSpeak are the following:
 \begin{itemize}
-    \item \textbf{FUNCTION}: taken from the function nodes menu. \\
-    This node is used to setup the Http get request and indeed here we copy the write API Key of ThingSpeak.
-    \item \textbf{HTTP REQUEST}: taken from the function nodes menu. \\
-    This node is responsible to perform the Http get request towards ThingSpeak with the parameters passed from the function node.
+    \item \textbf{FUNCTION}: taken from the \textit{function} menu. \\
+    This node is used to setup the HTTP get request and it is configured with the API key taken from ThingSpeak.
+    \item \textbf{HTTP REQUEST}: taken from the \textit{function} menu. \\
+    This node is responsible to perform the HTTP get request towards ThingSpeak with the parameters passed by the function block.
 \end{itemize}
 
-\subsubsection{ThingSpeak Charts}
-Once received some data samples, this is how ThingSpeak shows them.
+\subsubsection{ThingSpeak charts}
+Once some data samples have been received, this is how ThingSpeak shows them.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./pictures/thingspeak-channel-charts}
-		\caption{ThingSpeak Charts}
-		\label{mqtt_functioning}
+		\includegraphics[width=\textwidth]{./pictures/thingspeak-channel-charts}
+		\caption{ThingSpeak charts and UI.}
+		\label{thingspeak_charts}
 	\end{center}
 \end{figure}
-\section{Getting Started with ESP Boards}
 
-% Schematici + commento codice
+\newpage
+\section{Getting Started with ESP Boards}
 The \textit{Home Automation and Monitoring} system makes use of ESP modules to collect data from sensors and transmit them to the Raspberry Pi taking advantage of MQTT protocol.
 
 Two kinds of boards have been selected to play the role of MQTT client; namely NodeMCU ESP-12E and ESP-32 development kits. The former is based on the widely explored ESP8266 System-On-Chip, which combines WiFi and microcontroller capabilities. The latter utilizes an ESP32 SoC that is very similar, but far more powerful: it has been designed to provide robustness, versatility and reliability in a wide variety of applications.
@@ -303,15 +287,6 @@ Please notice that there is not a particular reason to use one specific board or
 \label{esp12_getting_started}
 An accurate picture of the board pinout is shown in Figure \ref{esp12_pinout}. The ESP8266 module requires 3.3V power supply. Luckily the board provides a voltage regulator and can be connected to 5V using microUSB connector or \textit{Vin} pin.
 
-\begin{figure}[H]
-	\begin{center}
-		\includegraphics[width=\textwidth]{./pictures/ESP-12E_pinout.JPG}
-		\caption{ESP-12E pinout.}
-		\label{esp12_pinout}
-	\end{center}
-\end{figure}
-
-\noindent
 There is a number of two ESP-12E boards involved in the system. They both have the same configuration, sensors and wiring, but can be deployed in two different areas.
 In more details, each board takes advantage of temperature, humidity and light sensors.
 
@@ -344,6 +319,14 @@ ESP8266, the core of ESP-12E boards, supports sleeping. While sleeping, the devi
 Deep sleep is one out of four supported types of sleep mode: everything is off but the Real Time Clock. This is the most power efficient option.
 
 Pin D0 (GPIO 16) needs to be connected to RST to wake up the device when deep sleep is over: whenever RST receives a LOW signal, it restarts the microcontroller. Once the device is in deep sleep mode, a LOW signal will be sent to GPIO 16 as soon as the timer is up.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.9\textwidth]{./pictures/ESP-12E_pinout.JPG}
+		\caption{ESP-12E pinout.}
+		\label{esp12_pinout}
+	\end{center}
+\end{figure}
 
 \begin{figure}[H]
 	\begin{center}
