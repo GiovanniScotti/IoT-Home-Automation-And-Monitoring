@@ -189,11 +189,11 @@ After the system has been rebooted, whenever Node-RED is accessed for the first 
 \end{figure}
 
 \subsubsection{Flow building blocks}
-The main building blocks used in the development environment to create the dashboard and provide MQTT connection are the following:
+The main building blocks used in the development environment to create the dashboard and provide MQTT connection are the followings:
 
 \begin{itemize}
     \item \textbf{MQTT}: taken from \textit{input} and \textit{output} menus.\\
-    These nodes are used to manage the connection with the MQTT broker installed on the Raspberry Pi to get and send data based on the subscriptions and publications of the ESP nodes.
+    This kind of node is used to manage the connection with the MQTT broker installed on the Raspberry Pi to get and send data based on the subscriptions and publications of the ESP nodes.
     \item \textbf{GAUGE}: taken from the \textit{dashboard} menu.\\
     This node allows to display the current value measured from a certain sensor with different types of representation (i.e. gauge, donut, compass or level) in the dashboard.
     \item \textbf{CHART}: taken from the \textit{dashboard} menu.\\
@@ -221,7 +221,7 @@ The dashboard can be accessed at the same address of the development environment
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.3\textwidth]{./pictures/smartphone_dashboard.JPG}
+		\includegraphics[width=0.5\textwidth]{./pictures/smartphone_dashboard.JPG}
 		\caption{Node-RED dashboard: mobile version.}
 		\label{mobile_ui}
 	\end{center}
@@ -252,9 +252,9 @@ After this, copy the API key that is required to send data to ThingSpeak from No
 	\end{center}
 \end{figure}
 
-\subsubsection{Node-RED communication}
+\subsubsection{Node-RED interfacing}
+The blocks used to enable the communication with ThingSpeak are the followings:
 
-The blocks used to enable the communication with ThingSpeak are the following:
 \begin{itemize}
     \item \textbf{FUNCTION}: taken from the \textit{function} menu. \\
     This node is used to setup the HTTP get request and it is configured with the API key taken from ThingSpeak.
@@ -262,8 +262,8 @@ The blocks used to enable the communication with ThingSpeak are the following:
     This node is responsible to perform the HTTP get request towards ThingSpeak with the parameters passed by the function block.
 \end{itemize}
 
-\subsubsection{ThingSpeak charts}
-Once some data samples have been received, this is how ThingSpeak shows them.
+\subsubsection{ThingSpeak data visualization}
+Once some data samples have been received, Figure \ref{thingspeak_charts} shows an example of how ThingSpeak displays them.
 
 \begin{figure}[H]
 	\begin{center}
